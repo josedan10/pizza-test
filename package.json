@@ -7,22 +7,57 @@
         "watch-poll": "npm run watch -- --watch-poll",
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --disable-host-check --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "pretest": "./node_modules/.bin/eslint --ignore-path .gitignore . --fix",
+        "release": "./node_modules/.bin/standard-version",
+        "changelog": "./node_modules/.bin/conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+        "test": "./node_modules/.bin/jest --watchAll --detectOpenHandles"
     },
     "devDependencies": {
         "@babel/preset-react": "^7.10.4",
+        "@commitlint/cli": "^9.1.2",
+        "@commitlint/config-conventional": "^9.1.2",
         "axios": "^0.19",
         "cross-env": "^7.0",
+        "eslint": "^7.7.0",
+        "eslint-config-airbnb": "^18.2.0",
+        "eslint-plugin-import": "^2.22.0",
+        "eslint-plugin-jsx-a11y": "^6.3.1",
+        "eslint-plugin-react": "^7.20.6",
+        "eslint-plugin-react-hooks": "^4.1.0",
+        "husky": "^4.2.5",
         "jest": "^26.4.2",
         "laravel-mix": "^5.0.1",
+        "lint-staged": "^10.2.11",
         "lodash": "^4.17.19",
+        "prettier": "^2.1.0",
         "resolve-url-loader": "^3.1.0",
         "sass": "^1.15.2",
-        "sass-loader": "^8.0.0"
+        "sass-loader": "^8.0.0",
+        "standard-version": "^9.0.0"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^1.2.30",
+        "@fortawesome/free-brands-svg-icons": "^5.14.0",
+        "@fortawesome/free-solid-svg-icons": "^5.14.0",
+        "@fortawesome/react-fontawesome": "^0.1.11",
+        "@material-ui/core": "^4.11.0",
         "react": "^16.13.1",
         "react-dom": "^16.13.1",
-        "react-router-dom": "^5.2.0"
+        "react-router-dom": "^5.2.0",
+        "styled-components": "^5.1.1"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged",
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        }
+    },
+    "lint-staged": {
+        "*.js": [
+            "./node_modules/.bin/prettier --check --write --loglevel warn",
+            "./node_modules/.bin/eslint --fix --ignore-path .gitignore",
+            "./node_modules/.bin/jest --findRelatedTests"
+        ]
     }
 }
