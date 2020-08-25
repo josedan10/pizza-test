@@ -25,5 +25,5 @@
         "semi": "off",
         "linebreak-style": 0
     },
-    "ignorePatterns": ["public/js/app.js", "commitlint.config.js"]
+    "ignorePatterns": ["/public/js/app.js", "commitlint.config.js"]
 }
