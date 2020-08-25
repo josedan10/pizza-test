@@ -10,7 +10,7 @@ const StyledNav = styled(AppBar)`
 
   && {
     width: 100%;
-    background: ${(props) => props.theme.main};
+    background: ${(props) => props.theme.red};
     height: 100px;
     padding: 5px 50px;
   }
