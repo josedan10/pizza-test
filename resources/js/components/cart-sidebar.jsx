@@ -90,8 +90,7 @@ const SideBarClick = styled.div`
     }
 `;
 
-const sideBarCart = ({ listItems, currency }) => {
-    const amount = 39.98;
+const sideBarCart = ({ listItems, currency, totalAmount }) => {
     const [openCart, setOpenCart] = useState(false);
 
     return (
@@ -111,7 +110,7 @@ const sideBarCart = ({ listItems, currency }) => {
                 </StyledList>
                 <StyledActions>
                     <div className="cart-amount">
-                        Total: {formatPrice(amount, currency)}
+                        Total: {formatPrice(totalAmount, currency)}
                     </div>
                     <Button variant="contained" className="btn--green">
                         <FontAwesomeIcon
@@ -140,11 +139,13 @@ const sideBarCart = ({ listItems, currency }) => {
 sideBarCart.propTypes = {
     listItems: PropTypes.array,
     currency: PropTypes.string,
+    totalAmount: PropTypes.number,
 };
 
 const mapStateToProps = (state) => ({
     listItems: state.listItems,
     currency: state.currency,
+    totalAmount: state.totalAmount,
 });
 
 export default connect(mapStateToProps)(sideBarCart);

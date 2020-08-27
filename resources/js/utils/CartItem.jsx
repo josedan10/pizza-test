@@ -7,7 +7,7 @@ import { Button } from "@material-ui/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { connect } from "react-redux";
 
-import { priceCalculator } from "../helperFunctions/price";
+import { formatPrice } from "../helperFunctions/price";
 
 const StyledListItem = styled(ListItem)`
     && {
@@ -96,12 +96,7 @@ const CartItem = ({ itemData, sizes, pizzasList, currency }) => {
                     </div>
                 </div>
                 <div className="cart-item-price">
-                    {priceCalculator(
-                        item.price,
-                        itemData.quantity,
-                        itemData.size,
-                        currency
-                    )}
+                    {formatPrice(itemData.total, currency)}
                 </div>
             </div>
         </StyledListItem>
@@ -113,6 +108,7 @@ CartItem.propTypes = {
         id: PropTypes.number,
         quantity: PropTypes.number,
         size: PropTypes.number,
+        total: PropTypes.number,
     }),
     sizes: PropTypes.arrayOf(PropTypes.string),
     pizzasList: PropTypes.arrayOf(
@@ -124,7 +120,7 @@ CartItem.propTypes = {
             price: PropTypes.number,
         })
     ),
-    currency: PropTypes.string.isRequired,
+    currency: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({

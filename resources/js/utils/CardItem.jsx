@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
 import CustomButton from "./Button";
-import { priceCalculator } from "../helperFunctions/price";
+import { priceCalculator, formatPrice } from "../helperFunctions/price";
 import { addItemToCart } from "../redux/dispatchers";
 
 const IconButtonStyled = styled(Button)`
@@ -144,14 +144,29 @@ const CardStyled = styled(Card)`
 const CardItem = ({ itemData, theme, addItemToCart, currency }) => {
     const [quantity, setQuantity] = useState(1);
     const [size, setSize] = useState(0);
+    const [total, setTotal] = useState(
+        priceCalculator(itemData.price, quantity, size)
+    );
 
     // Add or substract the quantity
-    const addItem = () => setQuantity(quantity + 1);
-    const substractItem = () => setQuantity(quantity > 1 ? quantity - 1 : 1);
+    const addItem = () => {
+        const newQty = quantity + 1;
+        setQuantity(newQty);
+        setTotal(priceCalculator(itemData.price, newQty, size));
+    };
+
+    const substractItem = () => {
+        const newQty = quantity > 1 ? quantity - 1 : 1;
+        setQuantity(newQty);
+        setTotal(priceCalculator(itemData.price, newQty, size));
+    };
 
     // Select item size
     const sizes = ["Small", "Medium", "Big", "Familiar"];
-    const handleChangeSize = ({ target: { value } }) => setSize(value);
+    const handleChangeSize = ({ target: { value } }) => {
+        setSize(value);
+        setTotal(priceCalculator(itemData.price, quantity, value));
+    };
 
     return (
         <CardStyled className="card-item">
@@ -182,6 +197,7 @@ const CardItem = ({ itemData, theme, addItemToCart, currency }) => {
                         id: itemData.id,
                         size,
                         quantity,
+                        total,
                     })
                 }
                 variant="contained"
@@ -230,9 +246,7 @@ const CardItem = ({ itemData, theme, addItemToCart, currency }) => {
                     <FontAwesomeIcon icon={["fas", "plus"]} size="2x" />
                 </CustomButton>
             </CardActions>
-            <div className="card-footer">
-                {priceCalculator(itemData.price, quantity, size, currency)}
-            </div>
+            <div className="card-footer">{formatPrice(total, currency)}</div>
         </CardStyled>
     );
 };

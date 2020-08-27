@@ -2,6 +2,7 @@ import { ADD_ITEM_TO_CART } from "./actions";
 
 const initState = {
     listItems: [],
+    totalAmount: 0.0,
     currency: "USD",
     currenciesList: ["USD", "EUR"],
     USDToEURRelation: 0.85,
@@ -43,6 +44,7 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
                 listItems: [...state.listItems, action.item],
+                totalAmount: state.totalAmount + action.item.total,
             };
 
         default:

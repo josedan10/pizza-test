@@ -15,6 +15,7 @@ export function formatPrice(price, currency) {
 
 /**
  * Calculate the price using the item size relation, and multiplied by the quantity and price
+ * If the currency is not passed the price is not formatted
  *
  * @export
  * @param {Number} price item price
@@ -23,6 +24,7 @@ export function formatPrice(price, currency) {
  * @param {String} currency
  * @return {Number}
  */
-export function priceCalculator(price, quantity, size, currency) {
-    return formatPrice(price * (quantity + size / 10), currency);
+export function priceCalculator(price, quantity, size, currency = "") {
+    const total = price * (quantity + size / 10);
+    return currency !== "" ? formatPrice(total, currrency) : total;
 }
