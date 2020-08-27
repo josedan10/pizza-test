@@ -2,6 +2,13 @@
 import React from "react";
 import { Grid } from "@material-ui/core";
 import CardItem from "../utils/CardItem";
+import styled from "styled-components";
+
+const GridStyled = styled(Grid)`
+    padding: 4rem;
+    max-width: 1600px;
+    margin: 0 auto !important;
+`;
 
 const GridContainer = () => {
     // const [isLoading, setLoading] = useState(false)
@@ -23,7 +30,7 @@ const GridContainer = () => {
             name: "Special Pichinolli",
             ingredients:
                 "Aliquip sunt magna culpa non ut voluptate exercitation. Commodo dolor voluptate pariatur occaecat magna consequat consectetur labore labore est non id voluptate nulla. Nostrud labore qui adipisicing do aute ea adipisicing ad. Nisi mollit et pariatur veniam cupidatat sit tempor et consequat ut qui incididunt irure ut. Esse proident cupidatat et nulla est pariatur enim duis aliqua. Nisi ea ullamco dolor aute esse dolore nulla magna aliqua excepteur nostrud ipsum cupidatat officia. Duis amet labore Lorem consectetur ex non.",
-            img: "",
+            img: "/images/pizzas/pizza-margarita.jpg",
         },
         {
             id: 3,
@@ -32,18 +39,18 @@ const GridContainer = () => {
             name: "Hawaian",
             ingredients:
                 "Aliquip sunt magna culpa non ut voluptate exercitation. Commodo dolor voluptate pariatur occaecat magna consequat consectetur labore labore est non id voluptate nulla. Nostrud labore qui adipisicing do aute ea adipisicing ad. Nisi mollit et pariatur veniam cupidatat sit tempor et consequat ut qui incididunt irure ut. Esse proident cupidatat et nulla est pariatur enim duis aliqua. Nisi ea ullamco dolor aute esse dolore nulla magna aliqua excepteur nostrud ipsum cupidatat officia. Duis amet labore Lorem consectetur ex non.",
-            img: "",
+            img: "/images/pizzas/pizza-margarita.jpg",
         },
     ];
 
     return (
-        <Grid container spacing={3}>
+        <GridStyled container spacing={10}>
             {items.map((item) => (
                 <Grid item xs={12} sm={6} md={4} key={"grid-item-" + item.id}>
                     <CardItem data={item}></CardItem>
                 </Grid>
             ))}
-        </Grid>
+        </GridStyled>
     );
 };
 
