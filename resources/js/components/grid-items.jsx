@@ -47,7 +47,7 @@ const GridContainer = () => {
         <GridStyled container spacing={10}>
             {items.map((item) => (
                 <Grid item xs={12} sm={6} md={4} key={"grid-item-" + item.id}>
-                    <CardItem data={item}></CardItem>
+                    <CardItem itemData={item}></CardItem>
                 </Grid>
             ))}
         </GridStyled>

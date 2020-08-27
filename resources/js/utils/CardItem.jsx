@@ -141,14 +141,15 @@ const CardStyled = styled(Card)`
     }
 `;
 
-const CardItem = ({ data, theme, addItemToCart }) => {
+const CardItem = ({ itemData, theme, addItemToCart }) => {
     const [quantity, setQuantity] = useState(1);
     const [size, setSize] = useState(0);
 
+    // Add or substract the quantity
     const addItem = () => setQuantity(quantity + 1);
     const substractItem = () => setQuantity(quantity > 1 ? quantity - 1 : 1);
 
-    // Size handler
+    // Select item size
     const sizes = ["Small", "Medium", "Big", "Familiar"];
     const handleChangeSize = ({ target: { value } }) => setSize(value);
 
@@ -158,12 +159,12 @@ const CardItem = ({ data, theme, addItemToCart }) => {
                 <CardMedia
                     height={275}
                     className="card-item-img"
-                    image={data.img}
+                    image={itemData.img}
                     title="Pizza Alt title"
                 />
                 <CardContent className="card-item-content-description">
                     <Typography gutterBottom component="p">
-                        {data.ingredients}
+                        {itemData.ingredients}
                     </Typography>
                 </CardContent>
             </div>
@@ -173,11 +174,11 @@ const CardItem = ({ data, theme, addItemToCart }) => {
                 variant="h5"
                 component="h2"
             >
-                {data.name}
+                {itemData.name}
             </Typography>
             <IconButtonStyled
                 onClick={() =>
-                    addItemToCart({ id: data.id, size: sizes[size], quantity })
+                    addItemToCart({ id: itemData.id, size: sizes[size], quantity })
                 }
                 variant="contained"
             >
@@ -226,14 +227,14 @@ const CardItem = ({ data, theme, addItemToCart }) => {
                 </CustomButton>
             </CardActions>
             <div className="card-footer">
-                {formatPrice(data.price * (quantity + size / 10))}
+                {formatPrice(itemData.price * (quantity + size / 10))}
             </div>
         </CardStyled>
     );
 };
 
 CardItem.propTypes = {
-    data: PropTypes.shape({
+    itemData: PropTypes.shape({
         id: PropTypes.number,
         name: PropTypes.string,
         img: PropTypes.string,
