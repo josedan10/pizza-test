@@ -29,7 +29,7 @@ export default styled(Button)`
             background-color: ${(props) => props.theme.orange};
         }
     }
-    
+
     &.btn--red {
         background-color: ${(props) => props.theme.red};
 

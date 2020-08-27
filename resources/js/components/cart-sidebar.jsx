@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { List, ListItem } from "@material-ui/core";
+import { List } from "@material-ui/core";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
