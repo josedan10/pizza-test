@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { ListItem } from "@material-ui/core";
 import styled from "styled-components";
@@ -47,7 +48,7 @@ const StyledListItem = styled(ListItem)`
     }
 
     .cart-item-price {
-        color: ${props => props.theme.red};
+        color: ${(props) => props.theme.red};
         font-weight: bold;
         font-size: 1.75rem;
         text-align: right;
@@ -69,16 +70,8 @@ const StyledListItem = styled(ListItem)`
     }
 `;
 
-const CartItem = ({ itemData }) => {
-    // getItemData from server
-    const item = {
-        name: "Margarita",
-        imgUrl: "/images/pizzas/pizza-margarita.jpg",
-        price: 9.99,
-    };
-
-    // Move this to store variables
-    const sizes = ["Small", "Medium", "Big", "Familiar"];
+const CartItem = ({ itemData, sizes, pizzasList, currency }) => {
+    const item = pizzasList.filter((pizza) => itemData.id === pizza.id)[0];
 
     return (
         <StyledListItem data-img={item.imgUrl}>
@@ -106,7 +99,8 @@ const CartItem = ({ itemData }) => {
                     {priceCalculator(
                         item.price,
                         itemData.quantity,
-                        itemData.size
+                        itemData.size,
+                        currency
                     )}
                 </div>
             </div>
@@ -118,8 +112,25 @@ CartItem.propTypes = {
     itemData: PropTypes.shape({
         id: PropTypes.number,
         quantity: PropTypes.number,
-        size: PropTypes.string,
+        size: PropTypes.number,
     }),
+    sizes: PropTypes.arrayOf(PropTypes.string),
+    pizzasList: PropTypes.arrayOf(
+        PropTypes.shape({
+            id: PropTypes.number,
+            name: PropTypes.string,
+            ingredients: PropTypes.string,
+            imgUrl: PropTypes.string,
+            price: PropTypes.number,
+        })
+    ),
+    currency: PropTypes.string.isRequired,
 };
 
-export default CartItem;
+const mapStateToProps = (state) => ({
+    sizes: state.sizes,
+    currency: state.currency,
+    pizzasList: state.pizzasList,
+});
+
+export default connect(mapStateToProps)(CartItem);

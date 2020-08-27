@@ -141,7 +141,7 @@ const CardStyled = styled(Card)`
     }
 `;
 
-const CardItem = ({ itemData, theme, addItemToCart }) => {
+const CardItem = ({ itemData, theme, addItemToCart, currency }) => {
     const [quantity, setQuantity] = useState(1);
     const [size, setSize] = useState(0);
 
@@ -231,7 +231,7 @@ const CardItem = ({ itemData, theme, addItemToCart }) => {
                 </CustomButton>
             </CardActions>
             <div className="card-footer">
-                {priceCalculator(itemData.price, quantity, size)}
+                {priceCalculator(itemData.price, quantity, size, currency)}
             </div>
         </CardStyled>
     );
@@ -247,9 +247,12 @@ CardItem.propTypes = {
     }),
     theme: PropTypes.object,
     addItemToCart: PropTypes.func.isRequired,
+    currency: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+    currency: state.currency,
+});
 const mapDispatchToProps = (dispatch) => ({
     addItemToCart: (item) => dispatch(addItemToCart(item)),
 });

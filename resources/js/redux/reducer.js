@@ -3,8 +3,10 @@ import { ADD_ITEM_TO_CART } from "./actions";
 const initState = {
     listItems: [],
     currency: "USD",
+    currenciesList: ["USD", "EUR"],
+    USDToEURRelation: 0.85,
     sizes: ["Small", "Medium", "Big", "Familiar"],
-    pizzas: [
+    pizzasList: [
         {
             id: 1,
             qty: 1,
