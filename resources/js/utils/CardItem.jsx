@@ -164,7 +164,7 @@ const CardItem = ({ itemData, theme, addItemToCart, currency }) => {
     // Select item size
     const sizes = ["Small", "Medium", "Big", "Familiar"];
     const handleChangeSize = ({ target: { value } }) => {
-        setSize(value);
+        setSize(parseInt(value));
         setTotal(priceCalculator(itemData.price, quantity, value));
     };
 
