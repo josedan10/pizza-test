@@ -141,7 +141,7 @@ const CardStyled = styled(Card)`
     }
 `;
 
-const CardItem = ({ itemData, theme, addItemToCart, currency }) => {
+const CardItem = ({ itemData, theme, addItemToCart, currency, editCard }) => {
     const [quantity, setQuantity] = useState(1);
     const [size, setSize] = useState(0);
     const [total, setTotal] = useState(
@@ -203,7 +203,7 @@ const CardItem = ({ itemData, theme, addItemToCart, currency }) => {
                 variant="contained"
             >
                 <FontAwesomeIcon
-                    icon={["fas", "plus"]}
+                    icon={["fas", editCard ? "save" : "plus"]}
                     color={theme.white}
                     size="3x"
                 />
@@ -262,6 +262,7 @@ CardItem.propTypes = {
     theme: PropTypes.object,
     addItemToCart: PropTypes.func.isRequired,
     currency: PropTypes.string,
+    editCard: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({

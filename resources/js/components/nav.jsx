@@ -1,8 +1,11 @@
 import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { AppBar, Grid } from "@material-ui/core";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import styled from "styled-components";
+import { formatPrice } from "../helperFunctions/price";
 
 const StyledNav = styled(AppBar)`
     && {
@@ -54,7 +57,7 @@ const StyledNav = styled(AppBar)`
  *
  * @return {NavBarComponent}
  */
-const NavBar = () => (
+const NavBar = ({ totalAmount, currency }) => (
     <StyledNav position="fixed">
         <Grid
             className="nav-container"
@@ -70,10 +73,23 @@ const NavBar = () => (
                 <img src="/images/icon.png" alt="pizzeria brand icon" />
             </Grid>
             <Grid className="bar-tools" item xs={4}>
-                Total: <span className="amount">$12.00</span>
+                Total:{" "}
+                <span className="amount">
+                    {formatPrice(totalAmount, currency)}
+                </span>
             </Grid>
         </Grid>
     </StyledNav>
 );
 
-export default NavBar;
+NavBar.propTypes = {
+    totalAmount: PropTypes.number,
+    currency: PropTypes.string,
+};
+
+const mapStateToProps = (state) => ({
+    totalAmount: state.totalAmount,
+    currency: state.currency,
+});
+
+export default connect(mapStateToProps)(NavBar);
