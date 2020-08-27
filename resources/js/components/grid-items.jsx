@@ -21,7 +21,7 @@ const GridContainer = () => {
             name: "Margarita",
             ingredients:
                 "Aliquip sunt magna culpa non ut voluptate exercitation. Commodo dolor voluptate pariatur occaecat magna consequat consectetur labore labore est non id voluptate nulla. Nostrud labore qui adipisicing do aute ea adipisicing ad. Nisi mollit et pariatur veniam cupidatat sit tempor et consequat ut qui incididunt irure ut. Esse proident cupidatat et nulla est pariatur enim duis aliqua. Nisi ea ullamco dolor aute esse dolore nulla magna aliqua excepteur nostrud ipsum cupidatat officia. Duis amet labore Lorem consectetur ex non.",
-            img: "/images/pizzas/pizza-margarita.jpg",
+            imgUrl: "/images/pizzas/pizza-margarita.jpg",
         },
         {
             id: 2,
@@ -30,7 +30,7 @@ const GridContainer = () => {
             name: "Special Pichinolli",
             ingredients:
                 "Aliquip sunt magna culpa non ut voluptate exercitation. Commodo dolor voluptate pariatur occaecat magna consequat consectetur labore labore est non id voluptate nulla. Nostrud labore qui adipisicing do aute ea adipisicing ad. Nisi mollit et pariatur veniam cupidatat sit tempor et consequat ut qui incididunt irure ut. Esse proident cupidatat et nulla est pariatur enim duis aliqua. Nisi ea ullamco dolor aute esse dolore nulla magna aliqua excepteur nostrud ipsum cupidatat officia. Duis amet labore Lorem consectetur ex non.",
-            img: "/images/pizzas/pizza-margarita.jpg",
+            imgUrl: "/images/pizzas/pizza-margarita.jpg",
         },
         {
             id: 3,
@@ -39,7 +39,7 @@ const GridContainer = () => {
             name: "Hawaian",
             ingredients:
                 "Aliquip sunt magna culpa non ut voluptate exercitation. Commodo dolor voluptate pariatur occaecat magna consequat consectetur labore labore est non id voluptate nulla. Nostrud labore qui adipisicing do aute ea adipisicing ad. Nisi mollit et pariatur veniam cupidatat sit tempor et consequat ut qui incididunt irure ut. Esse proident cupidatat et nulla est pariatur enim duis aliqua. Nisi ea ullamco dolor aute esse dolore nulla magna aliqua excepteur nostrud ipsum cupidatat officia. Duis amet labore Lorem consectetur ex non.",
-            img: "/images/pizzas/pizza-margarita.jpg",
+            imgUrl: "/images/pizzas/pizza-margarita.jpg",
         },
     ];
 

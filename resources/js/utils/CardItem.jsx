@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
 import CustomButton from "./Button";
-import formatPrice from "../helperFunctions/formatPrice";
+import { priceCalculator } from "../helperFunctions/price";
 import { addItemToCart } from "../redux/dispatchers";
 
 const IconButtonStyled = styled(Button)`
@@ -159,7 +159,7 @@ const CardItem = ({ itemData, theme, addItemToCart }) => {
                 <CardMedia
                     height={275}
                     className="card-item-img"
-                    image={itemData.img}
+                    image={itemData.imgUrl}
                     title="Pizza Alt title"
                 />
                 <CardContent className="card-item-content-description">
@@ -178,7 +178,11 @@ const CardItem = ({ itemData, theme, addItemToCart }) => {
             </Typography>
             <IconButtonStyled
                 onClick={() =>
-                    addItemToCart({ id: itemData.id, size: sizes[size], quantity })
+                    addItemToCart({
+                        id: itemData.id,
+                        size,
+                        quantity,
+                    })
                 }
                 variant="contained"
             >
@@ -227,7 +231,7 @@ const CardItem = ({ itemData, theme, addItemToCart }) => {
                 </CustomButton>
             </CardActions>
             <div className="card-footer">
-                {formatPrice(itemData.price * (quantity + size / 10))}
+                {priceCalculator(itemData.price, quantity, size)}
             </div>
         </CardStyled>
     );
@@ -237,8 +241,7 @@ CardItem.propTypes = {
     itemData: PropTypes.shape({
         id: PropTypes.number,
         name: PropTypes.string,
-        img: PropTypes.string,
-        qty: PropTypes.number,
+        imgUrl: PropTypes.string,
         price: PropTypes.number,
         ingredients: PropTypes.string,
     }),

@@ -5,8 +5,9 @@ import { List } from "@material-ui/core";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import formatPrice from "../helperFunctions/formatPrice";
+import { formatPrice } from "../helperFunctions/price";
 import Button from "../utils/Button";
+import CartItem from "../utils/CartItem";
 
 const StyledSideBar = styled.div`
     && {
@@ -27,13 +28,21 @@ const StyledSideBar = styled.div`
     }
 `;
 
-const StyledList = styled(List)``;
+const StyledList = styled(List)`
+    && {
+        overflow-y: auto;
+        padding: 28px 28px 240px;
+        box-sizing: border-box;
+        height: 100%;
+    }
+`;
 
 const StyledActions = styled.div`
     position: absolute;
     height: 212px;
     width: 100%;
     bottom: 0;
+    left: 0;
     background-color: ${(props) => props.theme.white};
     box-shadow: 0 -10px 10px rgba(0, 0, 0, 0.1);
     padding: 18px 30px;
@@ -92,7 +101,14 @@ const sideBarCart = ({ listItems }) => {
                 className={`sideBarEventHandler ${openCart && "opened"}`}
             />
             <StyledSideBar className={openCart && "opened"}>
-                <StyledList>{console.log(listItems)}</StyledList>
+                <StyledList>
+                    {listItems.map((cartItem, ind) => (
+                        <CartItem
+                            key={"cart-item-" + ind}
+                            itemData={{ ...cartItem }}
+                        />
+                    ))}
+                </StyledList>
                 <StyledActions>
                     <div className="cart-amount">
                         Total: {formatPrice(amount)}
