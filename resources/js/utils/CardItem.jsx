@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
 import CustomButton from "./Button";
+import formatPrice from "../helperFunctions/formatPrice";
 
 const IconButtonStyled = styled(Button)`
     && {
@@ -144,8 +145,6 @@ const CardItem = ({ data, theme }) => {
 
     const addItem = () => setQuantity(quantity + 1);
     const substractItem = () => setQuantity(quantity > 1 ? quantity - 1 : 1);
-
-    const formatPrice = (price) => parseFloat(price).toFixed(2);
 
     // Size handler
     const sizes = ["Small", "Medium", "Big", "Familiar"];

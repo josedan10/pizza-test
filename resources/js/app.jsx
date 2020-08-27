@@ -10,6 +10,7 @@ import { ThemeProvider } from "styled-components";
 import Nav from "./components/nav";
 import StarredCarousel from "./components/starred-carousel";
 import GridItems from "./components/grid-items";
+import CartSideBar from "./components/cart-sidebar";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -24,6 +25,7 @@ const App = () => (
             <Nav />
             <StarredCarousel />
             <GridItems />
+            <CartSideBar />
         </ThemeProvider>
     </div>
 );
