@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import {
     Card,
     CardMedia,
@@ -16,6 +17,7 @@ import PropTypes from "prop-types";
 
 import CustomButton from "./Button";
 import formatPrice from "../helperFunctions/formatPrice";
+import { addItemToCart } from "../redux/dispatchers";
 
 const IconButtonStyled = styled(Button)`
     && {
@@ -139,7 +141,7 @@ const CardStyled = styled(Card)`
     }
 `;
 
-const CardItem = ({ data, theme }) => {
+const CardItem = ({ data, theme, addItemToCart }) => {
     const [quantity, setQuantity] = useState(1);
     const [size, setSize] = useState(0);
 
@@ -173,7 +175,12 @@ const CardItem = ({ data, theme }) => {
             >
                 {data.name}
             </Typography>
-            <IconButtonStyled variant="contained">
+            <IconButtonStyled
+                onClick={() =>
+                    addItemToCart({ id: data.id, size: sizes[size], quantity })
+                }
+                variant="contained"
+            >
                 <FontAwesomeIcon
                     icon={["fas", "plus"]}
                     color={theme.white}
@@ -235,6 +242,15 @@ CardItem.propTypes = {
         ingredients: PropTypes.string,
     }),
     theme: PropTypes.object,
+    addItemToCart: PropTypes.func.isRequired,
 };
 
-export default withTheme(CardItem);
+const mapStateToProps = (state) => ({});
+const mapDispatchToProps = (dispatch) => ({
+    addItemToCart: (item) => dispatch(addItemToCart(item)),
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withTheme(CardItem));

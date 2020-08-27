@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { List } from "@material-ui/core";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -79,7 +81,7 @@ const SideBarClick = styled.div`
     }
 `;
 
-const sideBarCart = () => {
+const sideBarCart = ({ listItems }) => {
     const amount = 39.98;
     const [openCart, setOpenCart] = useState(false);
 
@@ -90,7 +92,7 @@ const sideBarCart = () => {
                 className={`sideBarEventHandler ${openCart && "opened"}`}
             />
             <StyledSideBar className={openCart && "opened"}>
-                <StyledList></StyledList>
+                <StyledList>{console.log(listItems)}</StyledList>
                 <StyledActions>
                     <div className="cart-amount">
                         Total: {formatPrice(amount)}
@@ -119,4 +121,12 @@ const sideBarCart = () => {
     );
 };
 
-export default sideBarCart;
+sideBarCart.propTypes = {
+    listItems: PropTypes.array,
+};
+
+const mapStateToProps = (state) => ({
+    listItems: state.listItems,
+});
+
+export default connect(mapStateToProps)(sideBarCart);
