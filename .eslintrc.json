@@ -5,8 +5,8 @@
     },
     "extends": [
         "plugin:react/recommended",
-        "airbnb",
-        "prettier"
+        "google",
+        "plugin:prettier/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -16,12 +16,13 @@
         "sourceType": "module"
     },
     "plugins": [
-        "react",
-        "prettier"
+        "react"
     ],
     "rules": {
         "require-jsdoc":"error",
-        "prettier/prettier": ["error", {}, {
+        "prettier/prettier": ["error", {
+            "endOfLine":"auto"
+        }, {
             "usePrettierrc": true
         }],
         "semi": "off",
