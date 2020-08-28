@@ -1,4 +1,4 @@
-import { ADD_ITEM_TO_CART, SHOW_EDIT_MODAL } from "./actions";
+import { ADD_ITEM_TO_CART, SHOW_EDIT_MODAL, HIDE_EDIT_MODAL } from "./actions";
 
 /**
  * Add item to cart store
@@ -15,7 +15,7 @@ export function addItemToCart(item) {
 }
 
 /**
- * Trigger the edit modal
+ * Show the edit order modal
  *
  * @export
  * @param {Object} order
@@ -25,5 +25,18 @@ export function showEditModal(order) {
     return {
         type: SHOW_EDIT_MODAL,
         order,
+    };
+}
+
+/**
+ * Hide the edit order modal
+ *
+ * @export
+ * @return {Object}
+ */
+export function hideEditModal() {
+    return {
+        type: HIDE_EDIT_MODAL,
+        order: null,
     };
 }

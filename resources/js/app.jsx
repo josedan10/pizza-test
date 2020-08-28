@@ -1,6 +1,6 @@
 import React, { Profiler } from "react";
 import ReactDOM from "react-dom";
-import { Provider } from 'react-redux';
+import { Provider } from "react-redux";
 
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fab } from "@fortawesome/free-brands-svg-icons";

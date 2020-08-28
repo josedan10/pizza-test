@@ -19,7 +19,7 @@ const StyledSideBar = styled.div`
         background-color: rgba(246, 246, 246, 0.7);
         transform: translateX(100%);
         transition: all 0.3s ease;
-        z-index: 100;
+        z-index: 50;
     }
 
     &.opened {
@@ -39,6 +39,7 @@ const StyledList = styled(List)`
 
 const StyledActions = styled.div`
     position: absolute;
+    z-index: 50;
     height: 212px;
     width: 100%;
     bottom: 0;
@@ -104,7 +105,7 @@ const sideBarCart = ({ listItems, currency, totalAmount }) => {
                     {listItems.map((cartItem, ind) => (
                         <CartItem
                             key={"cart-item-" + ind}
-                            itemData={{ ...cartItem }}
+                            orderData={{ ...cartItem }}
                         />
                     ))}
                 </StyledList>

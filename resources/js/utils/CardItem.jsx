@@ -141,11 +141,23 @@ const CardStyled = styled(Card)`
     }
 `;
 
-const CardItem = ({ itemData, theme, addItemToCart, currency, editCard }) => {
-    const [quantity, setQuantity] = useState(1);
-    const [size, setSize] = useState(0);
+const CardItem = ({
+    itemData,
+    theme,
+    addItemToCart,
+    currency,
+    editCard,
+    orderData = null,
+}) => {
+    // If we need edit the item set the default state using order object default values
+    const [quantity, setQuantity] = useState(
+        orderData ? orderData.quantity : 1
+    );
+    const [size, setSize] = useState(orderData ? orderData.size : 0);
     const [total, setTotal] = useState(
-        priceCalculator(itemData.price, quantity, size)
+        orderData
+            ? orderData.total
+            : priceCalculator(itemData.price, quantity, size)
     );
 
     // Add or substract the quantity
@@ -194,7 +206,7 @@ const CardItem = ({ itemData, theme, addItemToCart, currency, editCard }) => {
             <IconButtonStyled
                 onClick={() =>
                     addItemToCart({
-                        id: itemData.id,
+                        itemId: itemData.id,
                         size,
                         quantity,
                         total,
@@ -258,6 +270,12 @@ CardItem.propTypes = {
         imgUrl: PropTypes.string,
         price: PropTypes.number,
         ingredients: PropTypes.string,
+    }),
+    orderData: PropTypes.shape({
+        itemId: PropTypes.number,
+        quantity: PropTypes.number,
+        size: PropTypes.number,
+        total: PropTypes.number,
     }),
     theme: PropTypes.object,
     addItemToCart: PropTypes.func.isRequired,

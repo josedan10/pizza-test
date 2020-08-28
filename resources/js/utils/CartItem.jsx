@@ -3,12 +3,13 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { ListItem } from "@material-ui/core";
 import styled from "styled-components";
-import { Button as MButton } from "@material-ui/core";
+import { Button as MButton, Modal, Backdrop, Fade } from "@material-ui/core";
 import Button from "./Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { connect } from "react-redux";
 
 import { formatPrice } from "../helperFunctions/price";
+import { showEditModal, hideEditModal } from "../redux/dispatchers";
+import CardItem from "./CardItem";
 
 const StyledListItem = styled(ListItem)`
     && {
@@ -106,74 +107,128 @@ const StyledListItem = styled(ListItem)`
     }
 `;
 
-const CartItem = ({ itemData, sizes, pizzasList, currency, showEditModal }) => {
+const CartItem = ({
+    orderData,
+    sizes,
+    pizzasList,
+    currency,
+    showEditModal,
+    hideEditModal,
+}) => {
     const [showOptions, setShowOptions] = useState(false);
-    const item = pizzasList.filter((pizza) => itemData.id === pizza.id)[0];
+    const item = pizzasList.filter((pizza) => orderData.itemId === pizza.id)[0];
+    const [open, setOpen] = React.useState(false);
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+
+        return (dispatch) => {
+            dispatch(hideEditModal());
+        };
+    };
 
     return (
-        <StyledListItem data-img={item.imgUrl}>
-            <div
-                className={`cart-item-options-view ${showOptions && "visible"}`}
+        <React.Fragment>
+            <StyledListItem data-img={item.imgUrl}>
+                <div
+                    className={`cart-item-options-view ${
+                        showOptions && "visible"
+                    }`}
+                >
+                    <Button
+                        variant="contained"
+                        className="cart-item-actions-btn btn--orange"
+                        onClick={() => {
+                            showEditModal(orderData);
+                            handleOpen();
+                        }}
+                    >
+                        <FontAwesomeIcon size="2x" icon="edit" />
+                    </Button>
+                    <Button
+                        variant="contained"
+                        className="cart-item-actions-btn btn--green"
+                    >
+                        <FontAwesomeIcon size="2x" icon="eye" />
+                    </Button>
+                    <Button
+                        variant="contained"
+                        className="cart-item-actions-btn btn--red"
+                    >
+                        <FontAwesomeIcon size="2x" icon={["fas", "trash"]} />
+                    </Button>
+                    <MButton
+                        onClick={() => setShowOptions(false)}
+                        className="cart-item-options-close"
+                    >
+                        Close
+                    </MButton>
+                </div>
+                <div className="cart-item-img" />
+                <div className="cart-item-data">
+                    <div className="cart-item-name">{item.name}</div>
+                    <MButton
+                        onClick={() => setShowOptions(true)}
+                        className={`cart-item-options-btn ${
+                            showOptions && "hide"
+                        }`}
+                    >
+                        <FontAwesomeIcon
+                            size="2x"
+                            icon={["fas", "ellipsis-h"]}
+                        />
+                    </MButton>
+                    <div className="cart-item-description">
+                        <div className="cart-item-values">
+                            Size:{" "}
+                            <span className="cart-item-values-value">
+                                {sizes[orderData.size]}
+                            </span>
+                        </div>
+                        <div className="cart-item-values">
+                            Quantity:{" "}
+                            <span className="cart-item-values-value">
+                                {orderData.quantity}
+                            </span>
+                        </div>
+                    </div>
+                    <div className="cart-item-price">
+                        {formatPrice(orderData.total, currency)}
+                    </div>
+                </div>
+            </StyledListItem>
+
+            {/* Edit Modal */}
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
             >
-                <Button
-                    variant="contained"
-                    className="cart-item-actions-btn btn--orange"
-                >
-                    <FontAwesomeIcon size="2x" icon="edit" />
-                </Button>
-                <Button
-                    variant="contained"
-                    className="cart-item-actions-btn btn--green"
-                >
-                    <FontAwesomeIcon size="2x" icon="eye" />
-                </Button>
-                <Button
-                    variant="contained"
-                    className="cart-item-actions-btn btn--red"
-                >
-                    <FontAwesomeIcon size="2x" icon={["fas", "trash"]} />
-                </Button>
-                <MButton
-                    onClick={() => setShowOptions(false)}
-                    className="cart-item-options-close"
-                >
-                    Close
-                </MButton>
-            </div>
-            <div className="cart-item-img" />
-            <div className="cart-item-data">
-                <div className="cart-item-name">{item.name}</div>
-                <MButton
-                    onClick={() => setShowOptions(true)}
-                    className={`cart-item-options-btn ${showOptions && "hide"}`}
-                >
-                    <FontAwesomeIcon size="2x" icon={["fas", "ellipsis-h"]} />
-                </MButton>
-                <div className="cart-item-description">
-                    <div className="cart-item-values">
-                        Size:{" "}
-                        <span className="cart-item-values-value">
-                            {sizes[itemData.size]}
-                        </span>
-                    </div>
-                    <div className="cart-item-values">
-                        Quantity:{" "}
-                        <span className="cart-item-values-value">
-                            {itemData.quantity}
-                        </span>
-                    </div>
-                </div>
-                <div className="cart-item-price">
-                    {formatPrice(itemData.total, currency)}
-                </div>
-            </div>
-        </StyledListItem>
+                <Fade in={open}>
+                    <CardItem
+                        editCard={true}
+                        orderData={orderData}
+                        itemData={item}
+                    />
+                </Fade>
+            </Modal>
+        </React.Fragment>
     );
 };
 
 CartItem.propTypes = {
-    itemData: PropTypes.shape({
-        id: PropTypes.number,
+    orderData: PropTypes.shape({
+        itemId: PropTypes.number,
         quantity: PropTypes.number,
         size: PropTypes.number,
         total: PropTypes.number,
@@ -190,6 +245,7 @@ CartItem.propTypes = {
     ),
     currency: PropTypes.string,
     showEditModal: PropTypes.func,
+    hideEditModal: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -200,6 +256,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     showEditModal: (order) => dispatch(showEditModal(order)),
+    hideEditModal: () => dispatch(hideEditModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItem);

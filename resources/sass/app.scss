@@ -18,3 +18,10 @@ html {
     }
 }
 
+
+.ReactModal__Overlay {
+    z-index: 150;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
