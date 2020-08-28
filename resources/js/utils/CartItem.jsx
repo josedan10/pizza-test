@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { ListItem } from "@material-ui/core";
 import styled from "styled-components";
-import { Button } from "@material-ui/core";
+import { Button as MButton } from "@material-ui/core";
+import Button from "./Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { connect } from "react-redux";
 
@@ -67,20 +68,87 @@ const StyledListItem = styled(ListItem)`
         right: 0;
         top: 7px;
         color: ${(props) => props.theme.orange};
+
+        &.hide {
+            display: none;
+        }
+    }
+
+    .cart-item-options-view {
+        position: absolute;
+        border-radius: 10px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        background-color: ${(props) => props.theme.white};
+        padding: 15px;
+        opacity: 0;
+        transition: all 0.2s ease;
+
+        &.visible {
+            opacity: 1;
+            transition: all 0.2s ease;
+        }
+
+        .cart-item-actions-btn {
+            height: 4rem;
+            width: 4rem;
+        }
+
+        .cart-item-options-close {
+            positit>on: absolute;
+            right: 10px;
+            top: 7px;
+            color: ${(props) => props.theme.red};
+        }
     }
 `;
 
 const CartItem = ({ itemData, sizes, pizzasList, currency }) => {
+    const [showOptions, setShowOptions] = useState(false);
     const item = pizzasList.filter((pizza) => itemData.id === pizza.id)[0];
 
     return (
         <StyledListItem data-img={item.imgUrl}>
+            <div
+                className={`cart-item-options-view ${showOptions && "visible"}`}
+            >
+                <Button
+                    variant="contained"
+                    className="cart-item-actions-btn btn--orange"
+                >
+                    <FontAwesomeIcon size="2x" icon="edit" />
+                </Button>
+                <Button
+                    variant="contained"
+                    className="cart-item-actions-btn btn--green"
+                >
+                    <FontAwesomeIcon size="2x" icon="eye" />
+                </Button>
+                <Button
+                    variant="contained"
+                    className="cart-item-actions-btn btn--red"
+                >
+                    <FontAwesomeIcon size="2x" icon={["fas", "trash"]} />
+                </Button>
+                <MButton
+                    onClick={() => setShowOptions(false)}
+                    className="cart-item-options-close"
+                >
+                    Close
+                </MButton>
+            </div>
             <div className="cart-item-img" />
             <div className="cart-item-data">
                 <div className="cart-item-name">{item.name}</div>
-                <Button className="cart-item-options-btn">
+                <MButton
+                    onClick={() => setShowOptions(true)}
+                    className={`cart-item-options-btn ${showOptions && 'hide'}`}
+                >
                     <FontAwesomeIcon size="2x" icon={["fas", "ellipsis-h"]} />
-                </Button>
+                </MButton>
                 <div className="cart-item-description">
                     <div className="cart-item-values">
                         Size:{" "}
