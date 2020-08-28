@@ -99,11 +99,23 @@ const StyledListItem = styled(ListItem)`
         }
 
         .cart-item-options-close {
-            positit>on: absolute;
+            position: absolute;
             right: 10px;
             top: 7px;
             color: ${(props) => props.theme.red};
         }
+    }
+`;
+
+const StyledModal = styled(Modal)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+    .card-item {
+        width: 400px;
     }
 `;
 
@@ -204,9 +216,10 @@ const CartItem = ({
             </StyledListItem>
 
             {/* Edit Modal */}
-            <Modal
+            <StyledModal
                 // aria-labelledby="transition-modal-title"
                 // aria-describedby="transition-modal-description"
+                className="edit-modal"
                 open={open}
                 onClose={handleClose}
                 closeAfterTransition
@@ -224,7 +237,7 @@ const CartItem = ({
                         itemData={item}
                     />
                 </Fade>
-            </Modal>
+            </StyledModal>
         </React.Fragment>
     );
 };
