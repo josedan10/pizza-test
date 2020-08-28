@@ -3,6 +3,7 @@ import {
     SHOW_EDIT_MODAL,
     HIDE_EDIT_MODAL,
     EDIT_CART_ITEM,
+    REMOVE_ITEM_FROM_CART,
 } from "../actions";
 
 const initState = {
@@ -13,6 +14,8 @@ const initState = {
 };
 
 const reducer = (state = initState, action) => {
+    let newList;
+
     switch (action.type) {
         case ADD_ITEM_TO_CART:
             return {
@@ -28,7 +31,7 @@ const reducer = (state = initState, action) => {
             };
 
         case EDIT_CART_ITEM:
-            const newList = [...state.listItems];
+            newList = [...state.listItems];
             let cartAmount = state.totalAmount;
 
             // Update cartItems list and total Amount
@@ -41,6 +44,20 @@ const reducer = (state = initState, action) => {
                 editingOrder: null,
                 listItems: [...newList],
                 totalAmount: cartAmount,
+            };
+
+        case REMOVE_ITEM_FROM_CART:
+            const itemToRemove = state.listItems[action.cartIndex];
+
+            // Discount from total amount
+            const newAmount = state.totalAmount - itemToRemove.total;
+            newList = [state.listItems];
+            newList.splice(action.cartIndex, 1);
+
+            return {
+                ...state,
+                listItems: [...newList],
+                totalAmount: newAmount,
             };
 
         case HIDE_EDIT_MODAL:

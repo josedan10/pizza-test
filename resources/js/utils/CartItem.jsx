@@ -8,7 +8,11 @@ import Button from "./Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { formatPrice } from "../helperFunctions/price";
-import { showEditModal, hideEditModal } from "../redux/dispatchers";
+import {
+    showEditModal,
+    hideEditModal,
+    removeItemFromCart,
+} from "../redux/dispatchers";
 import CardItem from "./CardItem";
 
 const StyledListItem = styled(ListItem)`
@@ -126,6 +130,7 @@ const CartItem = ({
     currency,
     showEditModal,
     hideEditModal,
+    removeItemFromCart,
     cartIndex,
 }) => {
     const [showOptions, setShowOptions] = useState(false);
@@ -147,6 +152,7 @@ const CartItem = ({
     return (
         <React.Fragment>
             <StyledListItem data-img={item.imgUrl}>
+                {/* Actions buttons */}
                 <div
                     className={`cart-item-options-view ${
                         showOptions && "visible"
@@ -171,6 +177,7 @@ const CartItem = ({
                     <Button
                         variant="contained"
                         className="cart-item-actions-btn btn--red"
+                        onClick={() => removeItemFromCart(cartIndex)}
                     >
                         <FontAwesomeIcon size="2x" icon={["fas", "trash"]} />
                     </Button>
@@ -181,6 +188,8 @@ const CartItem = ({
                         Close
                     </MButton>
                 </div>
+
+                {/* Cart Front View */}
                 <div className="cart-item-img" />
                 <div className="cart-item-data">
                     <div className="cart-item-name">{item.name}</div>
@@ -217,8 +226,6 @@ const CartItem = ({
 
             {/* Edit Modal */}
             <StyledModal
-                // aria-labelledby="transition-modal-title"
-                // aria-describedby="transition-modal-description"
                 className="edit-modal"
                 open={open}
                 onClose={handleClose}
@@ -263,6 +270,7 @@ CartItem.propTypes = {
     cartIndex: PropTypes.number,
     showEditModal: PropTypes.func,
     hideEditModal: PropTypes.func,
+    removeItemFromCart: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -274,6 +282,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     showEditModal: (order) => dispatch(showEditModal(order)),
     hideEditModal: () => dispatch(hideEditModal()),
+    removeItemFromCart: (cartIndex) => dispatch(removeItemFromCart(cartIndex)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartItem);

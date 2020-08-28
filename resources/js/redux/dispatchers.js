@@ -3,6 +3,7 @@ import {
     SHOW_EDIT_MODAL,
     HIDE_EDIT_MODAL,
     EDIT_CART_ITEM,
+    REMOVE_ITEM_FROM_CART,
 } from "./actions";
 
 /**
@@ -31,6 +32,20 @@ export function editCartItem(item, cartIndex) {
     return {
         type: EDIT_CART_ITEM,
         item,
+        cartIndex,
+    };
+}
+
+/**
+ * Remove item from cart
+ *
+ * @export
+ * @param {Object} cartIndex
+ * @return {Object}
+ */
+export function removeItemFromCart(cartIndex) {
+    return {
+        type: REMOVE_ITEM_FROM_CART,
         cartIndex,
     };
 }
