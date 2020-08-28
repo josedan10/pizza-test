@@ -1,5 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import Slider from "react-slick";
 import styled from "styled-components";
 
@@ -75,7 +77,7 @@ const CarouselItem = styled.div`
     }
 `;
 
-export default () => {
+const Carousel = ({ carouselItems }) => {
     const settings = {
         dots: true,
         infinite: true,
@@ -84,29 +86,6 @@ export default () => {
         slidesToScroll: 1,
         autoplay: true,
     };
-
-    // TODO: change to reducer
-
-    const carouselItems = [
-        {
-            id: 1,
-            title: "Pichinolli Especial",
-            content:
-                "Anim id proident sit ullamco laboris minim ipsum ullamco enim cillum. Laborum ut magna fugiat veniam cupidatat tempor qui consectetur. Veniam excepteur elit enim amet reprehenderit nostrud laboris elit mollit velit cupidatat aliqua incididunt. Velit ullamco officia dolore esse ad enim sunt eiusmod labore minim. Ullamco reprehenderit pariatur veniam cillum ipsum labore magna est.",
-            linkURL: "#",
-            linkCaption: "¡LO QUIERO YA!",
-            image: "/images/starredPosts/pizzaBg1.jpg",
-        },
-        {
-            id: 2,
-            title: "Title 2",
-            content:
-                "Duis magna et irure proident ea aliqua aliqua culpa proident est velit laboris laboris velit. Sunt excepteur in incididunt ullamco cillum aute ut. Incididunt nulla eu sit Lorem incididunt.",
-            linkURL: "#",
-            linkCaption: "¡LO QUIERO YA!",
-            image: "/images/starredPosts/pizzaBg2.jpg",
-        },
-    ];
 
     return (
         <StyledCarousel>
@@ -132,3 +111,13 @@ export default () => {
         </StyledCarousel>
     );
 };
+
+Carousel.propTypes = {
+    carouselItems: PropTypes.array,
+};
+
+const mapStateToProps = (state) => ({
+    carouselItems: state.data.carouselItems,
+});
+
+export default connect(mapStateToProps)(Carousel);
