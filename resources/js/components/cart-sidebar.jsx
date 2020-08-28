@@ -143,9 +143,9 @@ sideBarCart.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    listItems: state.listItems,
-    currency: state.currency,
-    totalAmount: state.totalAmount,
+    listItems: state.cart.listItems,
+    currency: state.data.currency,
+    totalAmount: state.cart.totalAmount,
 });
 
 export default connect(mapStateToProps)(sideBarCart);

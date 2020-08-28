@@ -106,7 +106,7 @@ const StyledListItem = styled(ListItem)`
     }
 `;
 
-const CartItem = ({ itemData, sizes, pizzasList, currency }) => {
+const CartItem = ({ itemData, sizes, pizzasList, currency, showEditModal }) => {
     const [showOptions, setShowOptions] = useState(false);
     const item = pizzasList.filter((pizza) => itemData.id === pizza.id)[0];
 
@@ -145,7 +145,7 @@ const CartItem = ({ itemData, sizes, pizzasList, currency }) => {
                 <div className="cart-item-name">{item.name}</div>
                 <MButton
                     onClick={() => setShowOptions(true)}
-                    className={`cart-item-options-btn ${showOptions && 'hide'}`}
+                    className={`cart-item-options-btn ${showOptions && "hide"}`}
                 >
                     <FontAwesomeIcon size="2x" icon={["fas", "ellipsis-h"]} />
                 </MButton>
@@ -189,12 +189,17 @@ CartItem.propTypes = {
         })
     ),
     currency: PropTypes.string,
+    showEditModal: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
-    sizes: state.sizes,
-    currency: state.currency,
-    pizzasList: state.pizzasList,
+    sizes: state.data.sizes,
+    currency: state.data.currency,
+    pizzasList: state.data.pizzasList,
 });
 
-export default connect(mapStateToProps)(CartItem);
+const mapDispatchToProps = (dispatch) => ({
+    showEditModal: (order) => dispatch(showEditModal(order)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartItem);

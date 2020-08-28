@@ -79,11 +79,13 @@ export default () => {
     const settings = {
         dots: true,
         infinite: true,
-        speed: 500,
+        speed: 700,
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
     };
+
+    // TODO: change to reducer
 
     const carouselItems = [
         {

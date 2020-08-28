@@ -40,7 +40,7 @@ GridContainer.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    pizzasList: state.pizzasList,
+    pizzasList: state.data.pizzasList,
 });
 
 export default connect(mapStateToProps)(GridContainer);

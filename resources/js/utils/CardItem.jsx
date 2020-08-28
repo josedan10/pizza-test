@@ -266,7 +266,7 @@ CardItem.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    currency: state.currency,
+    currency: state.data.currency,
 });
 const mapDispatchToProps = (dispatch) => ({
     addItemToCart: (item) => dispatch(addItemToCart(item)),

@@ -1,8 +1,11 @@
-import { createStore, compose } from "redux";
+import { createStore, compose, combineReducers } from "redux";
 
 // Reducers
-import reducer from "./reducer";
+import dataReducer from "./reducers/data";
+import cartReducer from "./reducers/cart";
 
-const store = createStore(compose(reducer));
+const store = createStore(
+    compose(combineReducers({ data: dataReducer, cart: cartReducer }))
+);
 
 export default store;

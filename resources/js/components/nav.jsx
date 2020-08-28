@@ -88,8 +88,8 @@ NavBar.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-    totalAmount: state.totalAmount,
-    currency: state.currency,
+    totalAmount: state.cart.totalAmount,
+    currency: state.data.currency,
 });
 
 export default connect(mapStateToProps)(NavBar);
