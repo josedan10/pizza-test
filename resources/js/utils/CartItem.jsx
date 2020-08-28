@@ -114,6 +114,7 @@ const CartItem = ({
     currency,
     showEditModal,
     hideEditModal,
+    cartIndex,
 }) => {
     const [showOptions, setShowOptions] = useState(false);
     const item = pizzasList.filter((pizza) => orderData.itemId === pizza.id)[0];
@@ -204,8 +205,8 @@ const CartItem = ({
 
             {/* Edit Modal */}
             <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
+                // aria-labelledby="transition-modal-title"
+                // aria-describedby="transition-modal-description"
                 open={open}
                 onClose={handleClose}
                 closeAfterTransition
@@ -216,7 +217,9 @@ const CartItem = ({
             >
                 <Fade in={open}>
                     <CardItem
+                        handleClose={handleClose}
                         editCard={true}
+                        cartIndex={cartIndex}
                         orderData={orderData}
                         itemData={item}
                     />
@@ -244,6 +247,7 @@ CartItem.propTypes = {
         })
     ),
     currency: PropTypes.string,
+    cartIndex: PropTypes.number,
     showEditModal: PropTypes.func,
     hideEditModal: PropTypes.func,
 };

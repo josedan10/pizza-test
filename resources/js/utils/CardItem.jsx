@@ -17,7 +17,7 @@ import PropTypes from "prop-types";
 
 import CustomButton from "./Button";
 import { priceCalculator, formatPrice } from "../helperFunctions/price";
-import { addItemToCart } from "../redux/dispatchers";
+import { addItemToCart, editCartItem } from "../redux/dispatchers";
 
 const IconButtonStyled = styled(Button)`
     && {
@@ -145,7 +145,10 @@ const CardItem = ({
     itemData,
     theme,
     addItemToCart,
+    editCartItem,
+    handleClose,
     currency,
+    cartIndex,
     editCard,
     orderData = null,
 }) => {
@@ -203,23 +206,51 @@ const CardItem = ({
             >
                 {itemData.name}
             </Typography>
-            <IconButtonStyled
-                onClick={() =>
-                    addItemToCart({
-                        itemId: itemData.id,
-                        size,
-                        quantity,
-                        total,
-                    })
-                }
-                variant="contained"
-            >
-                <FontAwesomeIcon
-                    icon={["fas", editCard ? "save" : "plus"]}
-                    color={theme.white}
-                    size="3x"
-                />
-            </IconButtonStyled>
+
+            {/* Check if is an edit card to change the handler */}
+            {editCard ? (
+                <IconButtonStyled
+                    onClick={() => {
+
+                        editCartItem(
+                            {
+                                itemId: itemData.id,
+                                size,
+                                quantity,
+                                total,
+                            },
+                            cartIndex
+                        );
+
+                        handleClose();
+                    }}
+                    variant="contained"
+                >
+                    <FontAwesomeIcon
+                        icon={["fas", "save"]}
+                        color={theme.white}
+                        size="3x"
+                    />
+                </IconButtonStyled>
+            ) : (
+                <IconButtonStyled
+                    onClick={() =>
+                        addItemToCart({
+                            itemId: itemData.id,
+                            size,
+                            quantity,
+                            total,
+                        })
+                    }
+                    variant="contained"
+                >
+                    <FontAwesomeIcon
+                        icon={["fas", "plus"]}
+                        color={theme.white}
+                        size="3x"
+                    />
+                </IconButtonStyled>
+            )}
 
             <CardActions className="card-item-actions">
                 <Select
@@ -279,6 +310,9 @@ CardItem.propTypes = {
     }),
     theme: PropTypes.object,
     addItemToCart: PropTypes.func.isRequired,
+    editCartItem: PropTypes.func.isRequired,
+    handleClose: PropTypes.func,
+    cartIndex: PropTypes.number,
     currency: PropTypes.string,
     editCard: PropTypes.bool,
 };
@@ -288,6 +322,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = (dispatch) => ({
     addItemToCart: (item) => dispatch(addItemToCart(item)),
+    editCartItem: (item, cartIndex) => dispatch(editCartItem(item, cartIndex)),
 });
 
 export default connect(

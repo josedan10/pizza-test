@@ -106,6 +106,7 @@ const sideBarCart = ({ listItems, currency, totalAmount }) => {
                         <CartItem
                             key={"cart-item-" + ind}
                             orderData={{ ...cartItem }}
+                            cartIndex={ind}
                         />
                     ))}
                 </StyledList>

@@ -1,4 +1,9 @@
-import { ADD_ITEM_TO_CART, SHOW_EDIT_MODAL, HIDE_EDIT_MODAL } from "../actions";
+import {
+    ADD_ITEM_TO_CART,
+    SHOW_EDIT_MODAL,
+    HIDE_EDIT_MODAL,
+    EDIT_CART_ITEM,
+} from "../actions";
 
 const initState = {
     usdToEur: 0.85,
@@ -20,6 +25,22 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
                 editingOrder: action.order,
+            };
+
+        case EDIT_CART_ITEM:
+            const newList = [...state.listItems];
+            let cartAmount = state.totalAmount;
+
+            // Update cartItems list and total Amount
+            cartAmount -= newList[action.cartIndex].total;
+            cartAmount += action.item.total;
+            newList[action.cartIndex] = action.item;
+
+            return {
+                ...state,
+                editingOrder: null,
+                listItems: [...newList],
+                totalAmount: cartAmount,
             };
 
         case HIDE_EDIT_MODAL:
