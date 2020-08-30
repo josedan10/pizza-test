@@ -6,10 +6,11 @@ import PropTypes from "prop-types";
 import { Snackbar } from "@material-ui/core";
 import { Alert, AlertTitle } from "@material-ui/lab";
 
-// Invoice views
-import Step1 from "../components/invoice-step1";
-
 import { cleanError } from "../redux/dispatchers";
+// Invoice views
+import InvoiceStep1 from "../components/invoice-step1";
+import InvoiceStep2 from "../components/invoice-step2";
+import InvoiceStep3 from "../components/invoice-step3";
 
 const StyledContainer = styled.div`
     display: flex;
@@ -20,8 +21,8 @@ const StyledContainer = styled.div`
     min-height: calc(100vh - 100px);
 
     .step-container-wrapper {
-        width: 85%;
-        max-width: 566px;
+        width: 70%;
+        max-width: 800px;
         margin: 0 auto;
         display: flex;
         flex-direction: column;
@@ -69,7 +70,8 @@ class InvoiceView extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            stepsForm: [<Step1 />, 2, 3],
+            // eslint-disable-next-line react/jsx-key
+            stepsForm: [<InvoiceStep1 />, <InvoiceStep2 />, <InvoiceStep3 />],
         };
 
         this.handleCloseAlert = this.handleCloseAlert.bind(this);

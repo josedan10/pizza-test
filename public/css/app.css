@@ -28,3 +28,136 @@ html {
   justify-content: center;
 }
 
+.invoice {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  padding: 55px 40px 30px;
+}
+
+.invoice-step3 .invoice-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.invoice-step3 .invoice-content-wrapper .invoice-title {
+  color: #D12508;
+  font-size: 3rem;
+  margin-bottom: 100px;
+}
+
+.invoice-step3 .invoice-content-wrapper .icon {
+  color: #C2C10A;
+}
+
+.invoice-step3 .invoice-content-wrapper .note {
+  color: #C2C10A;
+  font-size: 1.5rem;
+  margin-top: 50px;
+}
+
+.invoice-step3 .invoice-content-wrapper .print-invoice {
+  color: #D98B00;
+  margin-top: 1.5rem;
+}
+
+.invoice .invoice-title {
+  display: block;
+  color: #D98B00;
+  font-weight: bold;
+  font-size: 1.5rem;
+  margin-bottom: 21px;
+}
+
+.invoice form {
+  width: 100%;
+}
+
+.invoice form .delivery-address-input {
+  border: 2px solid #cacaca;
+  border-radius: 10px;
+  min-height: 188px;
+  background: transparent;
+  width: 100%;
+  padding: 1rem;
+  resize: vertical;
+  margin-bottom: 30px;
+}
+
+.invoice form .delivery-address-input::-moz-placeholder {
+  color: #9d9d9d;
+}
+
+.invoice form .delivery-address-input:-ms-input-placeholder {
+  color: #9d9d9d;
+}
+
+.invoice form .delivery-address-input::-ms-input-placeholder {
+  color: #9d9d9d;
+}
+
+.invoice form .delivery-address-input::placeholder {
+  color: #9d9d9d;
+}
+
+.invoice form .delivery-price {
+  color: #9d9d9d;
+  font-size: 1.125rem;
+}
+
+.invoice form .delivery-price-cost {
+  color: #D12508;
+  font-weight: bold;
+  font-size: 1.75rem;
+  margin-left: 1rem;
+}
+
+.invoice .btn-action {
+  margin-top: 40px;
+  width: 100%;
+  height: 4.75rem;
+  font-size: 1.5rem;
+}
+
+.invoice .order-details-left {
+  max-height: 40vh;
+  overflow-y: auto;
+  width: 48%;
+}
+
+.invoice .order-details-right {
+  width: 48%;
+}
+
+.invoice .order-details-right .order-details-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 23px;
+  border: 2px solid #cacaca;
+  border-radius: 10px;
+  font-size: 1.25rem;
+}
+
+.invoice .order-details-right .order-details-wrapper .disclaimer {
+  color: #D98B00;
+  font-size: 0.75rem;
+  margin-top: 1rem;
+}
+
+.invoice .order-details-right .order-details-wrapper .order-price {
+  margin-bottom: 0.5rem;
+}
+
+.invoice .order-details-right .order-details-wrapper .order-total-amount {
+  justify-self: flex-end;
+  color: #D12508;
+  font-size: 2.25rem;
+  font-weight: bold;
+  margin-top: 1.75rem;
+}
+

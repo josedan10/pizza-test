@@ -83,12 +83,13 @@ export function hideEditModal() {
 /**
  * Go to next invoice step
  *
+ * @param {Number} activeStep
  * @param {String} address
  * @export
  * @return {Object}
  */
-export function advanceInvoiceStep(address) {
-    if (address === "") {
+export function advanceInvoiceStep(activeStep, address) {
+    if (activeStep === 0 && address === "") {
         // Send error
         return {
             type: INVOICE_ERROR,

@@ -18,6 +18,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import theme from "./theme";
 import store from "./redux/store";
+import PrivateRoute from "./utils/PrivateRoute";
 
 library.add(fab, fas);
 
@@ -27,9 +28,9 @@ const App = () => (
             <ThemeProvider theme={theme}>
                 <Nav />
                 <Switch>
-                    <Route exact path="/invoice">
+                    <PrivateRoute exact path="/invoice">
                         <Invoice />
-                    </Route>
+                    </PrivateRoute>
                     <Route path="/">
                         <Home />
                     </Route>

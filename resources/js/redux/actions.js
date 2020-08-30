@@ -6,3 +6,4 @@ export const HIDE_EDIT_MODAL = "HIDE_EDIT_MODAL";
 export const ADVANCE_INVOICE_STEP = "ADVANCE_INVOICE_STEP";
 export const INVOICE_ERROR = "INVOICE_ERROR";
 export const CLEAN_ERROR = "CLEAN_ERROR";
+export const RESET_CART = "RESET_CART";

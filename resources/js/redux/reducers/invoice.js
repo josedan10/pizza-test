@@ -4,6 +4,7 @@ const initState = {
     address: "",
     activeStep: 0,
     error: null,
+    deliveryCost: 2.38,
 };
 
 const reducer = (state = initState, action) => {
@@ -11,8 +12,8 @@ const reducer = (state = initState, action) => {
         case ADVANCE_INVOICE_STEP:
             return {
                 ...state,
-                adress: state.address,
-                activeStep: state.activeStep + 1,
+                address: action.address || state.address,
+                activeStep: action.activeStep || state.activeStep + 1,
             };
 
         case INVOICE_ERROR:
