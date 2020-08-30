@@ -4,6 +4,9 @@ import {
     HIDE_EDIT_MODAL,
     EDIT_CART_ITEM,
     REMOVE_ITEM_FROM_CART,
+    ADVANCE_INVOICE_STEP,
+    INVOICE_ERROR,
+    CLEAN_ERROR,
 } from "./actions";
 
 /**
@@ -74,5 +77,39 @@ export function hideEditModal() {
     return {
         type: HIDE_EDIT_MODAL,
         order: null,
+    };
+}
+
+/**
+ * Go to next invoice step
+ *
+ * @param {String} address
+ * @export
+ * @return {Object}
+ */
+export function advanceInvoiceStep(address) {
+    if (address === "") {
+        // Send error
+        return {
+            type: INVOICE_ERROR,
+            error: "Please, specify a delivery address",
+        };
+    }
+
+    return {
+        type: ADVANCE_INVOICE_STEP,
+        address,
+    };
+}
+
+/**
+ * Cleans the error report on invoice
+ *
+ * @export
+ * @return {Object}
+ */
+export function cleanError() {
+    return {
+        type: CLEAN_ERROR,
     };
 }

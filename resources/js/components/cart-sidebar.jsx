@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { List } from "@material-ui/core";
 import styled from "styled-components";
@@ -114,13 +115,15 @@ const sideBarCart = ({ listItems, currency, totalAmount }) => {
                     <div className="cart-amount">
                         Total: {formatPrice(totalAmount, currency)}
                     </div>
-                    <Button variant="contained" className="btn--green">
-                        <FontAwesomeIcon
-                            icon={["fas", "money-bill-wave"]}
-                            className="cart-btn-icon"
-                        ></FontAwesomeIcon>
-                        Buy
-                    </Button>
+                    <Link className="link-nodecorate" to="/invoice">
+                        <Button variant="contained" className="btn--green">
+                            <FontAwesomeIcon
+                                icon={["fas", "money-bill-wave"]}
+                                className="cart-btn-icon"
+                            ></FontAwesomeIcon>
+                            Buy
+                        </Button>
+                    </Link>
                 </StyledActions>
             </StyledSideBar>
             <StyledCartButton

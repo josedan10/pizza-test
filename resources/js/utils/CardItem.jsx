@@ -8,7 +8,10 @@ import {
     CardContent,
     Button,
     Select,
+    Snackbar,
 } from "@material-ui/core";
+import { CheckCircleOutline as CheckCircleOutlineIcon } from "@material-ui/icons";
+import { Alert, AlertTitle } from "@material-ui/lab";
 import { ExpandMore } from "@material-ui/icons";
 import styled, { withTheme } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -163,6 +166,16 @@ const CardItem = ({
             : priceCalculator(itemData.price, quantity, size)
     );
 
+    // Alert State
+    const [showAlert, setShowAlert] = useState(false);
+    const handleCloseAlert = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+
+        setShowAlert(false);
+    };
+
     // Add or substract the quantity
     const addItem = () => {
         const newQty = quantity + 1;
@@ -184,113 +197,141 @@ const CardItem = ({
     };
 
     return (
-        <CardStyled className="card-item">
-            <div className="card-item-content-wrapper">
-                <CardMedia
-                    height={275}
-                    className="card-item-img"
-                    image={itemData.imgUrl}
-                    title="Pizza Alt title"
-                />
-                <CardContent className="card-item-content-description">
-                    <Typography gutterBottom component="p">
-                        {itemData.ingredients}
-                    </Typography>
-                </CardContent>
-            </div>
-            <Typography
-                className="card-item-name"
-                gutterBottom
-                variant="h5"
-                component="h2"
-            >
-                {itemData.name}
-            </Typography>
+        <React.Fragment>
+            <CardStyled className="card-item">
+                <div className="card-item-content-wrapper">
+                    <CardMedia
+                        height={275}
+                        className="card-item-img"
+                        image={itemData.imgUrl}
+                        title="Pizza Alt title"
+                    />
+                    <CardContent className="card-item-content-description">
+                        <Typography gutterBottom component="p">
+                            {itemData.ingredients}
+                        </Typography>
+                    </CardContent>
+                </div>
+                <Typography
+                    className="card-item-name"
+                    gutterBottom
+                    variant="h5"
+                    component="h2"
+                >
+                    {itemData.name}
+                </Typography>
 
-            {/* Check if is an edit card to change the handler */}
-            {editCard ? (
-                <IconButtonStyled
-                    onClick={() => {
+                {/* Check if is an edit card to change the handler */}
+                {editCard ? (
+                    <IconButtonStyled
+                        onClick={() => {
+                            editCartItem(
+                                {
+                                    itemId: itemData.id,
+                                    size,
+                                    quantity,
+                                    total,
+                                },
+                                cartIndex
+                            );
 
-                        editCartItem(
-                            {
+                            handleClose();
+                        }}
+                        variant="contained"
+                    >
+                        <FontAwesomeIcon
+                            icon={["fas", "save"]}
+                            color={theme.white}
+                            size="3x"
+                        />
+                    </IconButtonStyled>
+                ) : (
+                    <IconButtonStyled
+                        onClick={() => {
+                            addItemToCart({
                                 itemId: itemData.id,
                                 size,
                                 quantity,
                                 total,
-                            },
-                            cartIndex
-                        );
+                            });
 
-                        handleClose();
+                            setShowAlert(true);
+                        }}
+                        variant="contained"
+                    >
+                        <FontAwesomeIcon
+                            icon={["fas", "plus"]}
+                            color={theme.white}
+                            size="3x"
+                        />
+                    </IconButtonStyled>
+                )}
+
+                <CardActions className="card-item-actions">
+                    <Select
+                        className="select-input"
+                        native
+                        value={size}
+                        onChange={handleChangeSize}
+                        IconComponent={ExpandMore}
+                    >
+                        {sizes.map((opt, ind) => (
+                            <option key={opt + ind} value={ind}>
+                                {opt}
+                            </option>
+                        ))}
+                    </Select>
+                </CardActions>
+
+                <CardActions disableSpacing className="card-item-actions">
+                    <CustomButton
+                        onClick={substractItem}
+                        size="small"
+                        variant="contained"
+                        className="btn--orange"
+                        disableElevation
+                    >
+                        <FontAwesomeIcon icon={["fas", "minus"]} size="2x" />
+                    </CustomButton>
+                    <div className="qty">{quantity}</div>
+                    <CustomButton
+                        onClick={addItem}
+                        size="small"
+                        variant="contained"
+                        className="btn--orange"
+                        disableElevation
+                    >
+                        <FontAwesomeIcon icon={["fas", "plus"]} size="2x" />
+                    </CustomButton>
+                </CardActions>
+                <div className="card-footer">
+                    {formatPrice(total, currency)}
+                </div>
+            </CardStyled>
+
+            {/* Alert for card events */}
+            <Snackbar
+                open={showAlert}
+                autoHideDuration={3000}
+                onClose={handleCloseAlert}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
+            >
+                <Alert
+                    iconMapping={{
+                        success: <CheckCircleOutlineIcon fontSize="inherit" />,
                     }}
-                    variant="contained"
+                    severity="success"
+                    onClose={handleCloseAlert}
                 >
-                    <FontAwesomeIcon
-                        icon={["fas", "save"]}
-                        color={theme.white}
-                        size="3x"
-                    />
-                </IconButtonStyled>
-            ) : (
-                <IconButtonStyled
-                    onClick={() =>
-                        addItemToCart({
-                            itemId: itemData.id,
-                            size,
-                            quantity,
-                            total,
-                        })
-                    }
-                    variant="contained"
-                >
-                    <FontAwesomeIcon
-                        icon={["fas", "plus"]}
-                        color={theme.white}
-                        size="3x"
-                    />
-                </IconButtonStyled>
-            )}
-
-            <CardActions className="card-item-actions">
-                <Select
-                    className="select-input"
-                    native
-                    value={size}
-                    onChange={handleChangeSize}
-                    IconComponent={ExpandMore}
-                >
-                    {sizes.map((opt, ind) => (
-                        <option key={opt + ind} value={ind}>
-                            {opt}
-                        </option>
-                    ))}
-                </Select>
-            </CardActions>
-
-            <CardActions disableSpacing className="card-item-actions">
-                <CustomButton
-                    onClick={substractItem}
-                    size="small"
-                    variant="contained"
-                    className="btn--orange"
-                    disableElevation
-                >
-                    <FontAwesomeIcon icon={["fas", "minus"]} size="2x" />
-                </CustomButton>
-                <div className="qty">{quantity}</div>
-                <CustomButton
-                    onClick={addItem}
-                    size="small"
-                    variant="contained"
-                    className="btn--orange"
-                    disableElevation
-                >
-                    <FontAwesomeIcon icon={["fas", "plus"]} size="2x" />
-                </CustomButton>
-            </CardActions>
-            <div className="card-footer">{formatPrice(total, currency)}</div>
-        </CardStyled>
+                    <AlertTitle>Success</AlertTitle>
+                    You added{" "}
+                    <strong>{`${quantity} ${
+                        quantity > 1 ? "pizzas" : "pizza"
+                    } ${itemData.name}`}</strong>{" "}
+                    to the cart
+                </Alert>
+            </Snackbar>
+        </React.Fragment>
     );
 };
 

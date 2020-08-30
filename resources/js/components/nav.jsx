@@ -57,7 +57,7 @@ const StyledNav = styled(AppBar)`
  *
  * @return {NavBarComponent}
  */
-const NavBar = ({ totalAmount, currency }) => (
+const NavBar = ({ totalAmount, currency, cart }) => (
     <StyledNav position="fixed">
         <Grid
             className="nav-container"
@@ -85,11 +85,13 @@ const NavBar = ({ totalAmount, currency }) => (
 NavBar.propTypes = {
     totalAmount: PropTypes.number,
     currency: PropTypes.string,
+    cart: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
     totalAmount: state.cart.totalAmount,
     currency: state.data.currency,
+    cart: state.cart,
 });
 
 export default connect(mapStateToProps)(NavBar);

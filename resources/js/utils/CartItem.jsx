@@ -3,7 +3,14 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { ListItem } from "@material-ui/core";
 import styled from "styled-components";
-import { Button as MButton, Modal, Backdrop, Fade } from "@material-ui/core";
+import {
+    Button as MButton,
+    Modal,
+    Backdrop,
+    Fade,
+    Snackbar,
+} from "@material-ui/core";
+import { Alert, AlertTitle } from "@material-ui/lab";
 import Button from "./Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -135,8 +142,19 @@ const CartItem = ({
 }) => {
     const [showOptions, setShowOptions] = useState(false);
     const item = pizzasList.filter((pizza) => orderData.itemId === pizza.id)[0];
-    const [open, setOpen] = React.useState(false);
 
+    // Alert State
+    const [showAlert, setShowAlert] = useState(false);
+    const handleCloseAlert = (event, reason) => {
+        if (reason === "clickaway") {
+            return;
+        }
+
+        setShowAlert(false);
+    };
+
+    // Modal State
+    const [open, setOpen] = React.useState(false);
     const handleOpen = () => {
         setOpen(true);
     };
@@ -177,7 +195,10 @@ const CartItem = ({
                     <Button
                         variant="contained"
                         className="cart-item-actions-btn btn--red"
-                        onClick={() => removeItemFromCart(cartIndex)}
+                        onClick={() => {
+                            removeItemFromCart(cartIndex);
+                            setShowAlert(true);
+                        }}
                     >
                         <FontAwesomeIcon size="2x" icon={["fas", "trash"]} />
                     </Button>
