@@ -122,10 +122,12 @@ html {
         max-height: 40vh;
         overflow-y: auto;
         width: 48%;
+        align-self: flex-start;
     }
 
     .order-details-right {
         width: 48%;
+        align-self: flex-start;
         
         .order-details-wrapper {
             display: flex;

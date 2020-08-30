@@ -15,9 +15,9 @@ import InvoiceStep3 from "../components/invoice-step3";
 const StyledContainer = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
-    margin-top: 100px;
+    margin-top: 140px;
     min-height: calc(100vh - 100px);
 
     .step-container-wrapper {

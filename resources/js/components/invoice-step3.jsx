@@ -17,7 +17,7 @@ const InvoiceView3 = () => {
                 <a href="#" className="print-invoice">
                     Print your invoice
                 </a>
-                <Link to="/">
+                <Link className="link-nodecorate" to="/">
                     <Button
                         variant="contained"
                         className="btn--green btn-action"
