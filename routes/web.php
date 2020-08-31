@@ -25,4 +25,5 @@ Route::get('invoice', [
 
 Route::prefix('api')->group(function () {
     Route::get('items', 'ItemsController@getItems');
+    Route::get('items/starred', 'ItemsController@getStarredItems');
 });

@@ -143,16 +143,6 @@ const CartItem = ({
     const [showOptions, setShowOptions] = useState(false);
     const item = pizzasList.filter((pizza) => orderData.itemId === pizza.id)[0];
 
-    // Alert State
-    const [showAlert, setShowAlert] = useState(false);
-    const handleCloseAlert = (event, reason) => {
-        if (reason === "clickaway") {
-            return;
-        }
-
-        setShowAlert(false);
-    };
-
     // Modal State
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => {
@@ -179,10 +169,6 @@ const CartItem = ({
                     <Button
                         variant="contained"
                         className="cart-item-actions-btn btn--orange"
-                        onClick={() => {
-                            showEditModal(orderData);
-                            handleOpen();
-                        }}
                     >
                         <FontAwesomeIcon size="2x" icon="edit" />
                     </Button>

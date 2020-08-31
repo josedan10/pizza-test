@@ -8,6 +8,7 @@ import {
     INVOICE_ERROR,
     CLEAN_ERROR,
     UPDATE_LIST_ITEMS,
+    UPDATE_STARRED_ITEMS,
 } from "./actions";
 
 /**
@@ -126,6 +127,20 @@ export function cleanError() {
 export function updateListItems(listItems) {
     return {
         type: UPDATE_LIST_ITEMS,
-        listItems: listItems,
+        listItems,
+    };
+}
+
+/**
+ * Fecth starred items list
+ *
+ * @export
+ * @param {Array} carouselItems
+ * @return {Object}
+ */
+export function updateStarredItems(carouselItems) {
+    return {
+        type: UPDATE_STARRED_ITEMS,
+        carouselItems,
     };
 }

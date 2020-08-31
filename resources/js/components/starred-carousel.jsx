@@ -4,8 +4,11 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Slider from "react-slick";
 import styled from "styled-components";
+import axios from "axios";
 
-import Button from "../utils/Button";
+import { updateStarredItems } from "../redux/dispatchers";
+
+import CarouselItem from "../utils/CarouselItem";
 
 const StyledCarousel = styled.div`
     width: 100vw;
@@ -38,86 +41,85 @@ const StyledCarousel = styled.div`
     }
 `;
 
-const CarouselItem = styled.div`
-    max-height: 900px;
-    height: 60vh;
-    width: 100%;
-    background-image: url(${(props) => props.image});
-    background-size: cover;
-    background-position: center;
-    color: white;
-    display: inline-flex !important;
-    align-items: center;
-    padding: 0 50px;
-
-    .text {
-        max-width: 520px;
-        position: relative;
-        backdrop-filter: blur(10px) brightness(0.85);
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 10px 10px rgba(0, 0, 0, 0.3);
-
-        .item-title {
-            margin-bottom: 25px;
-            font-size: 4rem;
-            font-family: "Kaushan Script", cursive;
-        }
-
-        .content {
-            font-size: 1.125rem;
-        }
-
-        .carousel-btn {
-            margin-top: 50px;
-            height: 63px;
-            font-size: 1.5rem;
-            width: 100%;
-        }
+/**
+ * Starred items carousel
+ *
+ * @class Carousel
+ * @extends {React.Component}
+ */
+class Carousel extends React.Component {
+    /**
+     *Creates an instance of Carousel.
+     * @param {*} props
+     * @memberof Carousel
+     */
+    constructor(props) {
+        super(props);
+        this.settings = {
+            dots: true,
+            infinite: true,
+            speed: 1000,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+        };
     }
-`;
 
-const Carousel = ({ carouselItems }) => {
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 700, 
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        autoplay: true,
-    };
+    /**
+     * fetch the starred items
+     *
+     * @memberof Carousel
+     */
+    componentDidMount() {
+        const _this = this;
 
-    return (
-        <StyledCarousel>
-            <Slider {...settings}>
-                {carouselItems.map((item) => (
-                    <CarouselItem
-                        key={item.id + item.linkURL}
-                        image={item.image}
-                    >
-                        <div className="text">
-                            <h1 className="item-title">{item.title}</h1>
-                            <div className="content">{item.content}</div>
-                            <Button
-                                variant="contained"
-                                className="btn--green carousel-btn"
-                            >
-                                {item.linkCaption}
-                            </Button>
-                        </div>
-                    </CarouselItem>
-                ))}
-            </Slider>
-        </StyledCarousel>
-    );
-};
+        axios
+            .get("/api/items/starred")
+            .then((res) => {
+                _this.props.updateStarredItems(res.data);
+            })
+            .catch((err) => console.log(err));
+    }
+
+    /**
+     *  Render the carousel
+     *
+     * @return {React.Component}
+     * @memberof Carousel
+     */
+    render() {
+        const { carouselItems } = this.props;
+
+        return (
+            <StyledCarousel>
+                <Slider {...this.settings}>
+                    {carouselItems.map((item) => (
+                        <CarouselItem
+                            item={item}
+                            key={item.id + item.linkURL}
+                        />
+                    ))}
+                </Slider>
+            </StyledCarousel>
+        );
+    }
+}
 
 Carousel.propTypes = {
     carouselItems: PropTypes.array,
+    updateStarredItems: PropTypes.func,
+    showModal: PropTypes.func,
+    hideModal: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
     carouselItems: state.data.carouselItems,
 });
 
-export default connect(mapStateToProps)(Carousel);
+const mapDispatchToProps = (dispatch) => ({
+    updateStarredItems: (carouselItems) =>
+        dispatch(updateStarredItems(carouselItems)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Carousel);
