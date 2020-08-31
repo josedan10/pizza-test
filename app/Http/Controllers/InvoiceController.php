@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Invoice;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
@@ -51,7 +52,15 @@ class InvoiceController extends Controller
      */
     public function printInvoice (Request $request, $id) {
         $invoice = Invoice::find($id);
-        $pdf = \PDF::loadView('invoice', compact('invoice'));
+
+        // Get items details in the invoice: size and quantity
+        $invoiceDetails = DB::table('invoices')
+                            ->join('invoice_items', function ($join) use($id) {
+                                $join->on('invoices.id', '=', 'invoice_items.invoice_id')
+                                     ->where('invoice_items.invoice_id', '=', $id);
+                            })->get();
+
+        $pdf = \PDF::loadView('invoice', compact('invoice', 'invoiceDetails'));
         return $pdf->stream();
     }
 }

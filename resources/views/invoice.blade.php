@@ -70,7 +70,6 @@
     </style>
 </head>
 <body>
-
     <div class="header">
         Invoice #{{$invoice->id}}
     </div>
@@ -87,22 +86,35 @@
             <td>Quantity</td>
             <td>Total</td>
         </tr>
-        @foreach ($invoice->items as $item)
-            <tr>
+        @php
+            // $invoice->currency = 'EUR';
+            function asDollars($value) {
+                return '$' . number_format($value, 2);
+            }
+
+            function asEur($value) {
+                return '€'.number_format($value * 0.85, 2);
+            }
+        @endphp
+        @foreach ($invoiceDetails as $invoiceItem)
+        <tr>
                 @php
-                    $amountIndv = $item->price * $item[$item->size.'_relation_price'] + $item->price;
+                    $invoiceItemsArray = $invoice->items->toArray();
+                    $itemIdx = array_search($invoiceItem->item_id, array_column($invoiceItemsArray, 'id'));
+                    $item = $invoiceItemsArray[$itemIdx];
+                    $amountIndv = $item['price'] * $item[$invoiceItem->size.'_relation_price'] + $item['price'];
                 @endphp
 
-                <td>{{ $item->name }}</td>
-                <td>{{ $item->size }}</td>
-                <td>{{ $amountIndv }}</td>
-                <td>{{ $item->quantity }}</td>
-                <td>{{ $item->quantity * $amountIndv }}</td>
+                <td>{{ $item['name'] }}</td>
+                <td>{{ $invoiceItem->size }}</td>
+                <td>{{ $invoice->currency == 'USD' ? asDollars($amountIndv) : asEur($amountIndv) }}</td>
+                <td>{{ $invoiceItem->quantity }}</td>
+                <td>{{ $invoice->currency == 'USD' ? asDollars($invoiceItem->quantity * $amountIndv) : asEur($invoiceItem->quantity * $amountIndv) }}</td>
             </tr>
         @endforeach
     </table>
 
-    <div class="delivery-price">Delivery price: <b>{{ $invoice->delivery_price }}</b></div>
-    <div class="totalAmount">Total: <div class="amount">{{ $invoice->total_amount }}</div></div>
+    <div class="delivery-price">Delivery price: <b>{{ $invoice->currency == 'USD' ? asDollars($invoice->delivery_price) : asEur($invoice->delivery_price) }}</b></div>
+    <div class="totalAmount">Total: <div class="amount">{{ $invoice->currency == 'USD' ? asDollars($invoice->total_amount) : asEur($invoice->total_amount) }}</div></div>
 </body>
 </html>
