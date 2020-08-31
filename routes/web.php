@@ -13,8 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{path?}', [
+Route::get('/', [
     'uses' => 'FrontendController@show',
     'as' => 'react',
-    'where' => ['path' => '.*']
 ]);
+
+Route::get('invoice', [
+    'uses' => 'FrontendController@show',
+    'as' => 'react',
+]);
+
+Route::prefix('api')->group(function () {
+    Route::get('items', 'ItemsController@getItems');
+});
