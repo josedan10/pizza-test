@@ -169,6 +169,10 @@ const CartItem = ({
                     <Button
                         variant="contained"
                         className="cart-item-actions-btn btn--orange"
+                        onClick={() => {
+                            showEditModal(orderData);
+                            handleOpen();
+                        }}
                     >
                         <FontAwesomeIcon size="2x" icon="edit" />
                     </Button>
@@ -177,7 +181,7 @@ const CartItem = ({
                         className="cart-item-actions-btn btn--red"
                         onClick={() => {
                             removeItemFromCart(cartIndex);
-                            setShowAlert(true);
+                            // setShowAlert(true);
                         }}
                     >
                         <FontAwesomeIcon size="2x" icon={["fas", "trash"]} />

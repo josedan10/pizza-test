@@ -23,6 +23,7 @@ const StyledModal = styled(Modal)`
 
 const StyledCarouselItem = styled.div`
     max-height: 900px;
+    min-height: 500px;
     height: 60vh;
     width: 100%;
     background-image: url(${(props) => props.image});
@@ -57,6 +58,10 @@ const StyledCarouselItem = styled.div`
             font-size: 1.5rem;
             width: 100%;
         }
+    }
+
+    @media (max-width: 980px) {
+        justify-content: center;
     }
 `;
 

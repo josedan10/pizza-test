@@ -42,6 +42,11 @@ const StyledContainer = styled.div`
                 background-color: ${(props) => props.theme.orange};
                 opacity: 0.2;
 
+                @media (max-width: 700px) {
+                    width: 19px;
+                    height: 19px;
+                }
+
                 &.active {
                     opacity: 1;
                 }
@@ -51,6 +56,10 @@ const StyledContainer = styled.div`
                     opacity 1;
                 }
             }
+        }
+
+        @media (max-width: 700px) {
+            width: 95%;
         }
     }
 `;

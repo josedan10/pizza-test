@@ -22,6 +22,12 @@ const StyledNav = styled(AppBar)`
         color: ${(props) => props.theme.white};
     }
 
+    .pizza-name {
+        @media (max-width: 980px) {
+            display: none;
+        }
+    }
+
     .nav-container {
         height: 100%;
     }
@@ -33,6 +39,10 @@ const StyledNav = styled(AppBar)`
 
         img {
             height: 80px;
+        }
+
+        @media (max-width: 980px) {
+            justify-content: flex-start;
         }
     }
 
@@ -51,7 +61,7 @@ const StyledNav = styled(AppBar)`
     }
 
     .change-currency-select {
-        min-width: 200px;
+        min-width: 100px;
         
         .MuiInputBase-root {
             color: ${(props) => props.theme.orange};
@@ -85,13 +95,13 @@ const NavBar = ({ totalAmount, currency, cart, setCurrency }) => {
                 justify="space-between"
                 alignItems="center"
             >
-                <Grid item xs={4}>
+                <Grid item xs={4} className="pizza-name">
                     Nombre de pizzería
                 </Grid>
-                <Grid item xs={4} className="brand-icon">
+                <Grid item xs={2} className="brand-icon">
                     <img src="/images/icon.png" alt="pizzeria brand icon" />
                 </Grid>
-                <Grid className="bar-tools" item xs={4}>
+                <Grid className="bar-tools" item xs={9} md={4}>
                     <FormControl
                         className="change-currency-select"
                         variant="outlined"

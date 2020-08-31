@@ -10,9 +10,16 @@ import CardItem from "../utils/CardItem";
 import { updateListItems } from "../redux/dispatchers";
 
 const GridStyled = styled(Grid)`
-    padding: 4rem;
-    max-width: 1600px;
-    margin: 0 auto !important;
+    && {
+        padding: 4rem;
+        max-width: 1600px;
+        margin: 0 auto !important;
+        width: 100%;
+
+        @media (max-width: 700px) {
+            padding: 1rem;
+        }
+    }
 `;
 
 /**

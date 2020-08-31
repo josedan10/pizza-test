@@ -57,6 +57,10 @@ const CardStyled = styled(Card)`
     .card-item-img {
         height: 300px;
         width: 100%;
+
+        @media (max-width: 700px) {
+            height: 170px;
+        }
     }
 
     .card-item-name {

@@ -21,6 +21,10 @@ const StyledSideBar = styled.div`
         transform: translateX(100%);
         transition: all 0.3s ease;
         z-index: 50;
+
+        @media (max-width: 700px) {
+            width: 100vw;
+        } 
     }
 
     &.opened {
@@ -53,6 +57,10 @@ const StyledActions = styled.div`
         color: ${(props) => props.theme.red};
         font-size: 3rem;
         font-weight: bold;
+
+        @media (max-width: 700px) {
+            font-size: 2.125rem;
+        }
     }
 
     .cart-btn-icon {
@@ -65,6 +73,13 @@ const StyledActions = styled.div`
         margin-top: 36px;
         font-size: 2.25rem;
     }
+
+    .close-btn {
+        color: ${(props) => props.theme.red};
+        display: block;
+        tex-align: center;
+        width: 100%;
+    }
 `;
 
 const StyledCartButton = styled(Button)`
@@ -76,6 +91,11 @@ const StyledCartButton = styled(Button)`
         height: 5rem;
         border-radius: 50%;
         box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+
+        @media (max-width: 700px) {
+            right: 1rem;
+            bottom: 1rem;
+        }
     }
 `;
 
@@ -124,6 +144,12 @@ const sideBarCart = ({ listItems, currency, totalAmount }) => {
                             Buy
                         </Button>
                     </Link>
+                    <Button
+                        onClick={() => setOpenCart(false)}
+                        className="close-btn"
+                    >
+                        Close
+                    </Button>
                 </StyledActions>
             </StyledSideBar>
             <StyledCartButton
