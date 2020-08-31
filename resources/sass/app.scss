@@ -82,6 +82,16 @@ html {
     form {
         width: 100%;
 
+        .username-input {
+            height: 2.5rem;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            width: 100%;
+            border: 2px solid #cacaca;
+            background: none;
+            border-radius: 10px;
+        }
+
         .delivery-address-input {
             border: 2px solid #cacaca;
             border-radius: 10px;

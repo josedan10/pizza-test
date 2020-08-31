@@ -4,6 +4,7 @@ import {
     HIDE_EDIT_MODAL,
     EDIT_CART_ITEM,
     REMOVE_ITEM_FROM_CART,
+    EMPTY_CART,
 } from "../actions";
 
 const initState = {
@@ -61,10 +62,16 @@ const reducer = (state = initState, action) => {
             };
 
         case HIDE_EDIT_MODAL:
-            console.log(action);
             return {
                 ...state,
                 editingOrder: action.order,
+            };
+
+        case EMPTY_CART:
+            return {
+                ...state,
+                listItems: [],
+                totalAmount: 0.0,
             };
 
         default:

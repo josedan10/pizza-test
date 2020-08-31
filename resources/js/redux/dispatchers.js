@@ -7,8 +7,10 @@ import {
     ADVANCE_INVOICE_STEP,
     INVOICE_ERROR,
     CLEAN_ERROR,
+    CLEAN_INVOICE,
     UPDATE_LIST_ITEMS,
     UPDATE_STARRED_ITEMS,
+    EMPTY_CART,
 } from "./actions";
 
 /**
@@ -87,21 +89,23 @@ export function hideEditModal() {
  *
  * @param {Number} activeStep
  * @param {String} address
+ * @param {String} username
  * @export
  * @return {Object}
  */
-export function advanceInvoiceStep(activeStep, address) {
-    if (activeStep === 0 && address === "") {
+export function advanceInvoiceStep(activeStep, address, username) {
+    if (activeStep === 0 && (!address || !username)) {
         // Send error
         return {
             type: INVOICE_ERROR,
-            error: "Please, specify a delivery address",
+            error: "Please, fill all the fields",
         };
     }
 
     return {
         type: ADVANCE_INVOICE_STEP,
         address,
+        username,
     };
 }
 
@@ -142,5 +146,29 @@ export function updateStarredItems(carouselItems) {
     return {
         type: UPDATE_STARRED_ITEMS,
         carouselItems,
+    };
+}
+
+/**
+ * Clean Invoice data
+ *
+ * @export
+ * @return {Object}
+ */
+export function cleanInvoice() {
+    return {
+        type: CLEAN_INVOICE,
+    };
+}
+
+/**
+ * Empty Cart
+ *
+ * @export
+ * @return {Object}
+ */
+export function emptyCart() {
+    return {
+        type: EMPTY_CART,
     };
 }

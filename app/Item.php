@@ -22,6 +22,6 @@ class Item extends Model
      */
     public function invoices()
     {
-        return $this->belongsToMany('App\Invoice');
+        return $this->belongsToMany('App\Invoice', 'invoice_items', 'item_id', 'invoice_id');
     }
 }

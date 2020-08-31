@@ -1,9 +1,13 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import Button from "../utils/Button";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-const InvoiceView3 = () => {
+import Button from "../utils/Button";
+import { cleanInvoice, emptyCart } from "../redux/dispatchers";
+
+const InvoiceView3 = ({ cleanInvoice, emptyCart }) => {
     return (
         <div className="invoice invoice-step3">
             <div className="invoice-content-wrapper">
@@ -17,7 +21,14 @@ const InvoiceView3 = () => {
                 <a href="#" className="print-invoice">
                     Print your invoice
                 </a>
-                <Link className="link-nodecorate" to="/">
+                <Link
+                    onClick={() => {
+                        cleanInvoice();
+                        emptyCart();
+                    }}
+                    className="link-nodecorate"
+                    to="/"
+                >
                     <Button
                         variant="contained"
                         className="btn--green btn-action"
@@ -30,4 +41,15 @@ const InvoiceView3 = () => {
     );
 };
 
-export default InvoiceView3;
+InvoiceView3.propTypes = {
+    cleanInvoice: PropTypes.func.isRequired,
+    emptyCart: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = () => ({});
+const mapDispatchToProps = (dispatch) => ({
+    cleanInvoice: () => dispatch(cleanInvoice()),
+    emptyCart: () => dispatch(emptyCart()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(InvoiceView3);

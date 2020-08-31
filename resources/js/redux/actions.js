@@ -9,3 +9,5 @@ export const CLEAN_ERROR = "CLEAN_ERROR";
 export const RESET_CART = "RESET_CART";
 export const UPDATE_LIST_ITEMS = "UPDATE_LIST_ITEMS";
 export const UPDATE_STARRED_ITEMS = "UPDATE_STARRED_ITEMS";
+export const CLEAN_INVOICE = "CLEAN_INVOICE";
+export const EMPTY_CART = "EMPTY_CART";

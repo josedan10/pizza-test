@@ -174,12 +174,6 @@ const CartItem = ({
                     </Button>
                     <Button
                         variant="contained"
-                        className="cart-item-actions-btn btn--green"
-                    >
-                        <FontAwesomeIcon size="2x" icon="eye" />
-                    </Button>
-                    <Button
-                        variant="contained"
                         className="cart-item-actions-btn btn--red"
                         onClick={() => {
                             removeItemFromCart(cartIndex);

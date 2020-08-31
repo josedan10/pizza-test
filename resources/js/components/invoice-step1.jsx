@@ -8,17 +8,26 @@ import { advanceInvoiceStep } from "../redux/dispatchers";
 
 const InvoiceStep1 = ({ advanceInvoiceStep, deliveryCost, activeStep }) => {
     const address = React.createRef();
+    const username = React.createRef();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        advanceInvoiceStep(activeStep, address.current.value);
+        advanceInvoiceStep(
+            activeStep,
+            address.current.value,
+            username.current.value
+        );
     };
-
-    // const [address, setAddress] = React.useState("");
 
     return (
         <div className="invoice invoice-step1">
             <form method="post" onSubmit={handleSubmit}>
+                <label className="invoice-title">Name</label>
+                <input
+                    className="username-input"
+                    placeholder="Your name"
+                    ref={username}
+                />
                 <label className="invoice-title">Delivery address</label>
                 <textarea
                     className="delivery-address-input"
@@ -51,8 +60,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    advanceInvoiceStep: (activeStep, address) =>
-        dispatch(advanceInvoiceStep(activeStep, address)),
+    advanceInvoiceStep: (activeStep, address, username) =>
+        dispatch(advanceInvoiceStep(activeStep, address, username)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InvoiceStep1);

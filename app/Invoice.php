@@ -19,6 +19,6 @@ class Invoice extends Model
      *  Get the items included in this invoice
      */
     public function items() {
-        return $this->belongsToMany('App\Items');
+        return $this->belongsToMany('App\Item', 'invoice_items', 'invoice_id', 'item_id');
     }
 }
