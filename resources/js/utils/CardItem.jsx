@@ -179,21 +179,32 @@ const CardItem = ({
     // Add or substract the quantity
     const addItem = () => {
         const newQty = quantity + 1;
+        const sizeRelationValue = parseFloat(
+            itemData[sizes[size].toLowerCase() + "_relation_price"]
+        );
+
         setQuantity(newQty);
-        setTotal(priceCalculator(itemData.price, newQty, size));
+        setTotal(priceCalculator(itemData.price, newQty, sizeRelationValue));
     };
 
     const substractItem = () => {
         const newQty = quantity > 1 ? quantity - 1 : 1;
+        const sizeRelationValue = parseFloat(
+            itemData[sizes[size].toLowerCase() + "_relation_price"]
+        );
         setQuantity(newQty);
-        setTotal(priceCalculator(itemData.price, newQty, size));
+        setTotal(priceCalculator(itemData.price, newQty, sizeRelationValue));
     };
 
     // Select item size
     const sizes = ["Small", "Medium", "Big", "Familiar"];
     const handleChangeSize = ({ target: { value } }) => {
+        const sizeRelationValue = parseFloat(
+            itemData[sizes[value].toLowerCase() + "_relation_price"]
+        );
+
         setSize(parseInt(value));
-        setTotal(priceCalculator(itemData.price, quantity, value));
+        setTotal(priceCalculator(itemData.price, quantity, sizeRelationValue));
     };
 
     return (
@@ -203,7 +214,7 @@ const CardItem = ({
                     <CardMedia
                         height={275}
                         className="card-item-img"
-                        image={itemData.imgUrl}
+                        image={itemData.img_url}
                         title="Pizza Alt title"
                     />
                     <CardContent className="card-item-content-description">
@@ -339,7 +350,7 @@ CardItem.propTypes = {
     itemData: PropTypes.shape({
         id: PropTypes.number,
         name: PropTypes.string,
-        imgUrl: PropTypes.string,
+        img_url: PropTypes.string,
         price: PropTypes.number,
         ingredients: PropTypes.string,
     }),

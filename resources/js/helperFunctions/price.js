@@ -20,11 +20,16 @@ export function formatPrice(price, currency) {
  * @export
  * @param {Number} price item price
  * @param {Number} quantity items quantity
- * @param {Number} size arrayIndex
+ * @param {Number} sizeRelationPrice arrayIndex
  * @param {String} currency
  * @return {Number}
  */
-export function priceCalculator(price, quantity, size, currency = "") {
-    const total = price * (quantity + size / 10);
+export function priceCalculator(
+    price,
+    quantity,
+    sizeRelationPrice,
+    currency = ""
+) {
+    const total = price * (quantity + sizeRelationPrice);
     return currency !== "" ? formatPrice(total, currrency) : total;
 }

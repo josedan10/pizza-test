@@ -12,14 +12,16 @@ class Item extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'ingredients','price', 'small_relation_price', 'medium_relation_price', 'big_relation_price', 'familiar_relation_price'
+        'name', 'ingredients','price', 'small_relation_price',
+        'medium_relation_price', 'big_relation_price',
+        'familiar_relation_price', 'img_url',
     ];
 
     /**
-     * Get the post that owns the comment.
+     * Get the invoices related with this item
      */
-    public function post()
+    public function invoices()
     {
-        return $this->belongsToMany('App\Cart');
+        return $this->belongsToMany('App\Invoice');
     }
 }

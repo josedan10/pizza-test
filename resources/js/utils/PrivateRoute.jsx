@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { Route, Redirect } from "react-router-dom";
 
 const PrivateRoute = ({ children, listItems, ...rest }) => {
-    console.log(listItems);
     return (
         <Route
             {...rest}

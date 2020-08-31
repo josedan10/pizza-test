@@ -17,6 +17,17 @@ class ItemsController extends Controller
         $items = Item::all();
         return response($items, 200);
     }
+    
+    /**
+     * Returns the starred items.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getStarredItems()
+    {
+        $items = Item::where('starred', true)->get();
+        return response($items, 200);
+    }
 
     /**
      * Show the form for creating a new resource.

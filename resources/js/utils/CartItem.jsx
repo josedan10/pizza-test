@@ -169,7 +169,7 @@ const CartItem = ({
 
     return (
         <React.Fragment>
-            <StyledListItem data-img={item.imgUrl}>
+            <StyledListItem data-img={item.img_url}>
                 {/* Actions buttons */}
                 <div
                     className={`cart-item-options-view ${
@@ -283,7 +283,7 @@ CartItem.propTypes = {
             id: PropTypes.number,
             name: PropTypes.string,
             ingredients: PropTypes.string,
-            imgUrl: PropTypes.string,
+            img_url: PropTypes.string,
             price: PropTypes.number,
         })
     ),

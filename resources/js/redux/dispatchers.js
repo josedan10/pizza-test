@@ -7,6 +7,7 @@ import {
     ADVANCE_INVOICE_STEP,
     INVOICE_ERROR,
     CLEAN_ERROR,
+    UPDATE_LIST_ITEMS,
 } from "./actions";
 
 /**
@@ -112,5 +113,19 @@ export function advanceInvoiceStep(activeStep, address) {
 export function cleanError() {
     return {
         type: CLEAN_ERROR,
+    };
+}
+
+/**
+ * Fecth list items in the db
+ *
+ * @export
+ * @param {Array} listItems
+ * @return {Object}
+ */
+export function updateListItems(listItems) {
+    return {
+        type: UPDATE_LIST_ITEMS,
+        listItems: listItems,
     };
 }

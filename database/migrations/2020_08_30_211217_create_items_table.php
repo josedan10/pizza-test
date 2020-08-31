@@ -22,6 +22,7 @@ class CreateItemsTable extends Migration
             $table->float('medium_relation_price');
             $table->float('big_relation_price');
             $table->float('familiar_relation_price');
+            $table->string('img_url', 255);
             $table->timestamps();
         });
     }
