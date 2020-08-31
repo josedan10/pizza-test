@@ -12,6 +12,7 @@ import {
     UPDATE_STARRED_ITEMS,
     EMPTY_CART,
     SET_INVOICE_ID,
+    SET_CURRENCY,
 } from "./actions";
 
 /**
@@ -185,5 +186,19 @@ export function setInvoiceId(id) {
     return {
         type: SET_INVOICE_ID,
         invoiceId: id,
+    };
+}
+
+/**
+ * Change the page currency
+ *
+ * @export
+ * @param {String} currency
+ * @return {Object}
+ */
+export function setCurrency(currency) {
+    return {
+        type: SET_CURRENCY,
+        currency,
     };
 }

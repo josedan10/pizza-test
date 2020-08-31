@@ -85,6 +85,5 @@ class InvoiceController extends Controller
         } else {
             return response()->redirectTo('/');
         }
-
     }
 }

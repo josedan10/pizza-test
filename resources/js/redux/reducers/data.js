@@ -1,6 +1,10 @@
 // import {  } from "./actions";
 
-import { UPDATE_LIST_ITEMS, UPDATE_STARRED_ITEMS } from "../actions";
+import {
+    UPDATE_LIST_ITEMS,
+    UPDATE_STARRED_ITEMS,
+    SET_CURRENCY,
+} from "../actions";
 
 const initState = {
     currency: "USD",
@@ -22,6 +26,12 @@ const reducer = (state = initState, action) => {
             return {
                 ...state,
                 carouselItems: [...action.carouselItems],
+            };
+
+        case SET_CURRENCY:
+            return {
+                ...state,
+                currency: action.currency,
             };
 
         default:

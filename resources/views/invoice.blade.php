@@ -115,6 +115,6 @@
     </table>
 
     <div class="delivery-price">Delivery price: <b>{{ $invoice->currency == 'USD' ? asDollars($invoice->delivery_price) : asEur($invoice->delivery_price) }}</b></div>
-    <div class="totalAmount">Total: <div class="amount">{{ $invoice->currency == 'USD' ? asDollars($invoice->total_amount) : asEur($invoice->total_amount) }}</div></div>
+    <div class="totalAmount">Total: <div class="amount">{{ $invoice->currency == 'USD' ? asDollars($invoice->total_amount + $invoice->delivery_price) : asEur($invoice->total_amount + $invoice->delivery_price) }}</div></div>
 </body>
 </html>

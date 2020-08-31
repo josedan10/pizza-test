@@ -1,11 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { AppBar, Grid } from "@material-ui/core";
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    AppBar,
+    Grid,
+    Select,
+    InputLabel,
+    FormControl,
+} from "@material-ui/core";
 
 import styled from "styled-components";
 import { formatPrice } from "../helperFunctions/price";
+import { setCurrency } from "../redux/dispatchers";
 
 const StyledNav = styled(AppBar)`
     && {
@@ -33,7 +39,7 @@ const StyledNav = styled(AppBar)`
     .bar-tools {
         display: flex;
         align-items: center;
-        justify-content: flex-end;
+        justify-content: space-between;
         font-size: 1.25rem;
 
         .amount {
@@ -41,6 +47,14 @@ const StyledNav = styled(AppBar)`
             font-size: 1.5rem;
             display: inline-block;
             margin-left: 10px;
+        }
+    }
+
+    .change-currency-select {
+        min-width: 200px;
+        
+        .MuiInputBase-root {
+            color: ${(props) => props.theme.orange};
         }
     }
 
@@ -57,35 +71,65 @@ const StyledNav = styled(AppBar)`
  *
  * @return {NavBarComponent}
  */
-const NavBar = ({ totalAmount, currency, cart }) => (
-    <StyledNav position="fixed">
-        <Grid
-            className="nav-container"
-            container
-            direction="row"
-            justify="space-between"
-            alignItems="center"
-        >
-            <Grid item xs={4}>
-                Nombre de pizzería
+const NavBar = ({ totalAmount, currency, cart, setCurrency }) => {
+    const handleChange = ({ target }) => {
+        setCurrency(target.value);
+    };
+
+    return (
+        <StyledNav position="fixed">
+            <Grid
+                className="nav-container"
+                container
+                direction="row"
+                justify="space-between"
+                alignItems="center"
+            >
+                <Grid item xs={4}>
+                    Nombre de pizzería
+                </Grid>
+                <Grid item xs={4} className="brand-icon">
+                    <img src="/images/icon.png" alt="pizzeria brand icon" />
+                </Grid>
+                <Grid className="bar-tools" item xs={4}>
+                    <FormControl
+                        className="change-currency-select"
+                        variant="outlined"
+                    >
+                        <InputLabel htmlFor="outlined-age-native-simple">
+                            Currency
+                        </InputLabel>
+                        <Select
+                            native
+                            value={currency}
+                            onChange={handleChange}
+                            label="Currency"
+                            inputProps={{
+                                name: "Currency",
+                                id: "outlined-age-native-simple",
+                            }}
+                        >
+                            <option value={"USD"}>USD</option>
+                            <option value={"EUR"}>EUR</option>
+                        </Select>
+                    </FormControl>
+                    <div className="cart-amount">
+                        Total:{" "}
+                        <span className="amount">
+                            {formatPrice(totalAmount, currency)}
+                        </span>
+                    </div>
+                </Grid>
             </Grid>
-            <Grid item xs={4} className="brand-icon">
-                <img src="/images/icon.png" alt="pizzeria brand icon" />
-            </Grid>
-            <Grid className="bar-tools" item xs={4}>
-                Total:{" "}
-                <span className="amount">
-                    {formatPrice(totalAmount, currency)}
-                </span>
-            </Grid>
-        </Grid>
-    </StyledNav>
-);
+        </StyledNav>
+    );
+};
 
 NavBar.propTypes = {
     totalAmount: PropTypes.number,
     currency: PropTypes.string,
     cart: PropTypes.object,
+    setCurrency: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -94,4 +138,8 @@ const mapStateToProps = (state) => ({
     cart: state.cart,
 });
 
-export default connect(mapStateToProps)(NavBar);
+const mapDispatchToProps = (dispatch) => ({
+    setCurrency: (value) => dispatch(setCurrency(value)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

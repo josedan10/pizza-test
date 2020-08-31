@@ -31,7 +31,7 @@ const InvoiceView3 = ({ cleanInvoice, emptyCart, invoiceId }) => {
                     }}
                     className="link-nodecorate"
                     to="/"
-                    target="_blank"
+                    // target="_blank"
                 >
                     <Button
                         variant="contained"

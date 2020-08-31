@@ -8,7 +8,6 @@ import {
 } from "../actions";
 
 const initState = {
-    usdToEur: 0.85,
     totalAmount: 0.0,
     editingOrder: null,
     listItems: [],

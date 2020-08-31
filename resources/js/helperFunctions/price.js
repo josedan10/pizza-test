@@ -10,7 +10,7 @@ export function formatPrice(price, currency) {
     return new Intl.NumberFormat("en-IN", {
         style: "currency",
         currency,
-    }).format(price);
+    }).format(currency === "USD" ? price : price * 0.85);
 }
 
 /**

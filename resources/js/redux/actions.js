@@ -12,3 +12,4 @@ export const UPDATE_STARRED_ITEMS = "UPDATE_STARRED_ITEMS";
 export const CLEAN_INVOICE = "CLEAN_INVOICE";
 export const EMPTY_CART = "EMPTY_CART";
 export const SET_INVOICE_ID = "SET_INVOICE_ID";
+export const SET_CURRENCY = "SET_CURRENCY";

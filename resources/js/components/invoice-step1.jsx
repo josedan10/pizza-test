@@ -6,7 +6,7 @@ import Button from "../utils/Button";
 import { formatPrice } from "../helperFunctions/price";
 import { advanceInvoiceStep } from "../redux/dispatchers";
 
-const InvoiceStep1 = ({ advanceInvoiceStep, deliveryCost, activeStep }) => {
+const InvoiceStep1 = ({ advanceInvoiceStep, deliveryCost, activeStep, currency }) => {
     const address = React.createRef();
     const username = React.createRef();
 
@@ -37,7 +37,7 @@ const InvoiceStep1 = ({ advanceInvoiceStep, deliveryCost, activeStep }) => {
                 <div className="delivery-price">
                     Delivery charge:{" "}
                     <span className="delivery-price-cost">
-                        {formatPrice(deliveryCost, "USD")}
+                        {formatPrice(deliveryCost, currency)}
                     </span>
                 </div>
                 <Button type="submit" className="btn--green btn-action">
@@ -52,11 +52,13 @@ InvoiceStep1.propTypes = {
     advanceInvoiceStep: PropTypes.func.isRequired,
     deliveryCost: PropTypes.number,
     activeStep: PropTypes.number,
+    currency: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
     deliveryCost: state.invoice.deliveryCost,
     activeStep: state.invoice.activeStep,
+    currency: state.data.currency,
 });
 
 const mapDispatchToProps = (dispatch) => ({
