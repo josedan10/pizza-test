@@ -3,6 +3,7 @@ import {
     INVOICE_ERROR,
     CLEAN_ERROR,
     CLEAN_INVOICE,
+    SET_INVOICE_ID,
 } from "../actions";
 
 const initState = {
@@ -11,6 +12,7 @@ const initState = {
     activeStep: 0,
     error: null,
     deliveryCost: 2.38,
+    invoiceId: null,
 };
 
 const reducer = (state = initState, action) => {
@@ -41,6 +43,12 @@ const reducer = (state = initState, action) => {
                 address: "",
                 username: "",
                 activeStep: 0,
+            };
+
+        case SET_INVOICE_ID:
+            return {
+                ...state,
+                invoiceId: action.invoiceId,
             };
 
         default:

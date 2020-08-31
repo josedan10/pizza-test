@@ -11,6 +11,7 @@ import {
     UPDATE_LIST_ITEMS,
     UPDATE_STARRED_ITEMS,
     EMPTY_CART,
+    SET_INVOICE_ID,
 } from "./actions";
 
 /**
@@ -170,5 +171,19 @@ export function cleanInvoice() {
 export function emptyCart() {
     return {
         type: EMPTY_CART,
+    };
+}
+
+/**
+ * Set the invoide into the store to generate the invoice
+ *
+ * @export
+ * @param {Number} id
+ * @return {Object}
+ */
+export function setInvoiceId(id) {
+    return {
+        type: SET_INVOICE_ID,
+        invoiceId: id,
     };
 }

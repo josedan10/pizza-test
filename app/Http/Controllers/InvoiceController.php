@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
+    /**
+     * This function process the items on the cart and save it to generate the invoice
+     *
+     * @param Request $request
+     * @return void
+     */
     public function checkout(Request $request) {
         $invoice = new Invoice();
 
@@ -30,6 +36,22 @@ class InvoiceController extends Controller
                 );
         }
 
-        return response('Saved '.count($request->input('listItems')). " items", 200);
+        return response([
+            'msg' => 'Saved '.count($request->input('listItems')). " items",
+            'invoice_id' => $invoice->id
+        ], 200);
+    }
+
+    /**
+     * Generate the PDF to print the invoice
+     *
+     * @param Request $request
+     * @param Number $id
+     * @return void
+     */
+    public function printInvoice (Request $request, $id) {
+        $invoice = Invoice::find($id);
+        $pdf = \PDF::loadView('invoice', compact('invoice'));
+        return $pdf->stream();
     }
 }

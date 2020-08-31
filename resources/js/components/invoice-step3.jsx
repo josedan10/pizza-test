@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import Button from "../utils/Button";
 import { cleanInvoice, emptyCart } from "../redux/dispatchers";
 
-const InvoiceView3 = ({ cleanInvoice, emptyCart }) => {
+const InvoiceView3 = ({ cleanInvoice, emptyCart, invoiceId }) => {
     return (
         <div className="invoice invoice-step3">
             <div className="invoice-content-wrapper">
@@ -18,7 +18,10 @@ const InvoiceView3 = ({ cleanInvoice, emptyCart }) => {
                     size="10x"
                 />
                 <div className="note">Thank you for trust in our service</div>
-                <a href="#" className="print-invoice">
+                <a
+                    href={"/print-invoice/" + invoiceId}
+                    className="print-invoice"
+                >
                     Print your invoice
                 </a>
                 <Link
@@ -44,9 +47,13 @@ const InvoiceView3 = ({ cleanInvoice, emptyCart }) => {
 InvoiceView3.propTypes = {
     cleanInvoice: PropTypes.func.isRequired,
     emptyCart: PropTypes.func.isRequired,
+    invoiceId: PropTypes.number,
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state) => ({
+    invoiceId: state.invoice.invoiceId,
+});
+
 const mapDispatchToProps = (dispatch) => ({
     cleanInvoice: () => dispatch(cleanInvoice()),
     emptyCart: () => dispatch(emptyCart()),

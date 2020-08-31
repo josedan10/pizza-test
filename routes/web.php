@@ -28,3 +28,6 @@ Route::prefix('api')->group(function () {
     Route::get('items/starred', 'ItemsController@getStarredItems');
     Route::post('checkout', 'InvoiceController@checkout');
 });
+
+Route::get('print-invoice/{id}', 'InvoiceController@printInvoice');
+

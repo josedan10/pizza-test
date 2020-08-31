@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import axios from "axios";
 
-import { advanceInvoiceStep } from "../redux/dispatchers";
+import { advanceInvoiceStep, setInvoiceId } from "../redux/dispatchers";
 import CartItem from "../utils/CartItem";
 import Button from "../utils/Button";
 import { formatPrice } from "../helperFunctions/price";
@@ -17,6 +17,7 @@ const InvoiceStep2 = ({
     deliveryCost,
     activeStep,
     currency,
+    setInvoiceId,
 }) => {
     const finishPurchase = async () => {
         try {
@@ -72,6 +73,7 @@ const InvoiceStep2 = ({
                         finishPurchase()
                             .then((res) => {
                                 advanceInvoiceStep(activeStep);
+                                setInvoiceId(res.data.invoice_id);
                             })
                             .catch((err) => console.log(err));
                     }}
@@ -89,6 +91,7 @@ InvoiceStep2.propTypes = {
     address: PropTypes.string,
     username: PropTypes.string,
     advanceInvoiceStep: PropTypes.func.isRequired,
+    setInvoiceId: PropTypes.func.isRequired,
     deliveryCost: PropTypes.number,
     activeStep: PropTypes.number,
     currency: PropTypes.string,
@@ -107,6 +110,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     advanceInvoiceStep: (step) => dispatch(advanceInvoiceStep(step)),
+    setInvoiceId: (id) => dispatch(setInvoiceId(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InvoiceStep2);
